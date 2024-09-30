@@ -9,16 +9,15 @@ public class EducationDepartmentFixture
     public List<Specitalty> SpecitaltyList { get; set; }
     public List<Department> DepartmentsList {  get; set; }
     public List<University> UniversityList { get; set; }
-    public List<UniversitySpecialty> UniversitySpecialtyList { get; set; }
 
     public EducationDepartmentFixture()
     {
         UniversityList =
             [
                 new University("UNI001", "University of Technology and Economics", "34 Tech Street", "Municipal", "Federal", "Ivan Yefimovich Petrov", "PhD", "Professor"),
-                new University("UNI002", "Medical University", "456 Health Road", "Private", "Private", "Anna Ivanova Vladimirovna", "Doctor of Medicine", "Professor"),
-                new University("UNI003", "Pedagogical University", "321 Education Street", "Municipal", "Municipal", "Olga Petrova", "Doctor of Science", "Professor"),
-                new University("UNI004", "University of Arts", "654 Art Boulevard", "Private", "Private", "Marina Vasilievna Smirnova", "Master of Arts", "Associate Professor"),
+                new University("UNI002", "Medical University", "456 Health Road", "Private", "Private", "Anna Ivanova Vladimirovna", "Doctor", "Professor"),
+                new University("UNI003", "Pedagogical University", "321 Education Street", "Municipal", "Municipal", "Olga Petrova", "PhD", "Professor"),
+                new University("UNI004", "University of Arts", "654 Art Boulevard", "Private", "Private", "Marina Vasilievna Smirnova", "MA", "Associate Professor"),
                 new University("UNI005", "Law University", "852 Justice Boulevard", "Private", "Municipal", "Nikolai Vasilyevich Sergeev", "PhD", "Professor"),
                 new University("UNI006", "University of Foreign Languages", "741 Pology Street", "Municipal", "Municipal", "Tatiana Nikolaevna Fedorova", "PhD", "Professor"),
                 new University("UNI007", "Sports University", "963 Lenin Prospekt", "Municipal", "Federal", "Sergey Sergeevich Kozlov", "PhD", "Professor"),
@@ -68,29 +67,29 @@ public class EducationDepartmentFixture
 
         SpecitaltyList =
             [
-                new Specitalty("1001.05.03", "Computer Software Science"),
-                new Specitalty("1001.04.03", "Computer Science"),
-                new Specitalty("1002.05.01", "Mechanical Engineering"),
-                new Specitalty("1002.04.02", "Mechanical Collaboration"),
-                new Specitalty("1003.04.05", "Finance and Banking"),
-                new Specitalty("1004.04.03", "Translation Studies"),
-                new Specitalty("2001.06.02", "Doctor"),
-                new Specitalty("2001.05.02", "Medicine"),
-                new Specitalty("2002.04.02", "Agronomy"),
-                new Specitalty("2002.04.04", "Pedagogye"),
-                new Specitalty("3001.04.01", "Pedagogye"),
-                new Specitalty("3001.04.03", "Sports Science"),
-                new Specitalty("4001.04.01", "Fine Arts"),
-                new Specitalty("4001.04.04", "Beauty Arts"),
-                new Specitalty("4002.04.02", "Translation Studies"),
-                new Specitalty("4003.04.03", "Sports Science"),
-                new Specitalty("5001.05.02", "International Law"),
-                new Specitalty("5001.04.01", "Foreign Law"),
-                new Specitalty("6001.05.02", "Computer Software Science"),
-                new Specitalty("6002.04.02", "Pedagogye"),
-                new Specitalty("6003.04.02", "Translation Studies"),
-                new Specitalty("6004.04.02", "Finance and Banking"),
-                new Specitalty("7001.03.02", "Sports Science")
+                new Specitalty("1001.05.03", "Computer Software Science", 7),
+                new Specitalty("1001.04.03", "Computer Science", 8),
+                new Specitalty("1002.05.01", "Mechanical Engineering", 10),
+                new Specitalty("1002.04.02", "Mechanical Collaboration", 5),
+                new Specitalty("1003.04.05", "Finance and Banking", 9),
+                new Specitalty("1004.04.03", "Translation Studies", 11),
+                new Specitalty("2001.06.02", "Doctor", 5),
+                new Specitalty("2001.05.02", "Medicine", 3),
+                new Specitalty("2002.04.02", "Agronomy", 4),
+                new Specitalty("2002.04.04", "Pedagogye", 6),
+                new Specitalty("3001.04.01", "Pedagogye", 8),
+                new Specitalty("3001.04.03", "Sports Science", 2),
+                new Specitalty("4001.04.01", "Fine Arts", 5),
+                new Specitalty("4001.04.04", "Beauty Arts", 6),
+                new Specitalty("4002.04.02", "Translation Studies", 6),
+                new Specitalty("4003.04.03", "Sports Science", 4),
+                new Specitalty("5001.05.02", "International Law", 3),
+                new Specitalty("5001.04.01", "Foreign Law", 5),
+                new Specitalty("6001.05.02", "Computer Software Science", 7),
+                new Specitalty("6002.04.02", "Pedagogye", 8),
+                new Specitalty("6003.04.02", "Translation Studies", 8),
+                new Specitalty("6004.04.02", "Finance and Banking", 5),
+                new Specitalty("7001.03.02", "Sports Science", 7)
             ];
 
         DepartmentSpecialtyList =
@@ -118,33 +117,6 @@ public class EducationDepartmentFixture
                 new DepartmentSpecialty("6003-DL", "6003.04.02"),
                 new DepartmentSpecialty("6004-DF", "6004.04.02"),
                 new DepartmentSpecialty("7001-DSP", "7001.03.02"),
-            ];
-
-        UniversitySpecialtyList =
-            [
-                new UniversitySpecialty("UNI001", "1001.05.03", 7),
-                new UniversitySpecialty("UNI001", "1001.04.03", 8),
-                new UniversitySpecialty("UNI001", "1002.05.01", 10),
-                new UniversitySpecialty("UNI001", "1002.04.02", 5),
-                new UniversitySpecialty("UNI001", "1003.04.05", 9),
-                new UniversitySpecialty("UNI001", "1004.04.03", 11),
-                new UniversitySpecialty("UNI002", "2001.06.02", 5),
-                new UniversitySpecialty("UNI002", "2001.05.02", 3),
-                new UniversitySpecialty("UNI002", "2002.04.02", 4),
-                new UniversitySpecialty("UNI002", "2002.04.04", 6),
-                new UniversitySpecialty("UNI003", "3001.04.01", 8),
-                new UniversitySpecialty("UNI003", "3001.04.03", 2),
-                new UniversitySpecialty("UNI004", "4001.04.01", 5),
-                new UniversitySpecialty("UNI004", "4001.04.04", 6),
-                new UniversitySpecialty("UNI004", "4002.04.02", 6),
-                new UniversitySpecialty("UNI004", "4003.04.03", 4),
-                new UniversitySpecialty("UNI005", "5001.05.02", 3),
-                new UniversitySpecialty("UNI005", "5001.04.01", 5),
-                new UniversitySpecialty("UNI006", "6001.05.02", 7),
-                new UniversitySpecialty("UNI006", "6002.04.02", 8),
-                new UniversitySpecialty("UNI006", "6003.04.02", 8),
-                new UniversitySpecialty("UNI006", "6004.04.02", 5),
-                new UniversitySpecialty("UNI007", "7001.03.02", 7)
             ];
     }
 }
