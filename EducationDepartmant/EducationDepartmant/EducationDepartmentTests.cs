@@ -24,8 +24,8 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                                   university.RectorFullName,
                                   university.Degree,
                                   university.Tittle
-                              }).ToList();
-
+                              }
+                              ).ToList();
 
         Assert.Equal("UNI006", infoUniversity[0].RegistrationNumber);
         Assert.Equal("University of Foreign Languages", infoUniversity[0].NameUni);
@@ -54,8 +54,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                           department.NameDep,
                           specialty.NameSp
                       }
-
-            ).ToList();
+                      ).ToList();
 
         Assert.Equal(result,
             [
@@ -78,8 +77,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                       {
                           NameSpe = table.Key,
                           TotalGroups = table.Sum(p => p.NumberOfGroups)
-                      }
-                      )
+                      })
                       .OrderByDescending(p => p.TotalGroups)
                       .Take(5)
                       .ToList();
@@ -93,7 +91,6 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                 new {NameSpe = "Sports Science", TotalGroups = 13}
             ]);
     }
-
 
     [Fact]
     public void InfoUniMaxDepartment()
@@ -171,7 +168,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                         BuildingOwnership = table1.Key.BuildingOwnership,
                         TotalSpecialties = table1.Count()
                     }
-            ).ToList();
+                    ).ToList();
 
         var tmp2 = (from faculty in _fixture.FacultyList
                     join university in _fixture.UniversityList on faculty.RegistrationNumber equals university.RegistrationNumber
@@ -181,8 +178,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                         PropertyType = table2.Key.PropertyType,
                         BuildingOwnership = table2.Key.BuildingOwnership,
                         TotalFaculties = table2.Count()
-                    }
-            ).ToList();
+                    }).ToList();
 
         var tmp3 = (from department in _fixture.DepartmentsList
                     join falcuty in _fixture.FacultyList on department.FacultyID equals falcuty.FacultyID
@@ -193,8 +189,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                         PropertyType = table3.Key.PropertyType,
                         BuildingOwnership = table3.Key.BuildingOwnership,
                         TotalDepartments = table3.Count()
-                    }
-            ).ToList();
+                    }).ToList();
 
         var result = (from temp1 in tmp1
                       join temp2 in tmp2 on temp1.PropertyType equals temp2.PropertyType where temp1.BuildingOwnership == temp2.BuildingOwnership
