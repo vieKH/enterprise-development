@@ -25,4 +25,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore ./EducationDepartment/EducationDepartment.sln
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./EducationDepartment/EducationDepartment.Test/EducationDepartment.Test/EducationDepartment.Test.csproj
+      run: dotnet test --no-build --verbosity normal ./EducationDepartment/EducationDepartment.Test/EducationDepartment.Test.csproj
