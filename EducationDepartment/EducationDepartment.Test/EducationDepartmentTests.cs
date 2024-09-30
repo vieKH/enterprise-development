@@ -173,8 +173,8 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
             ).ToList();
 
         var tmp3 = (from department in _fixture.DepartmentsList
-                    join falcuty in _fixture.FacultyList on department.FacultyId equals falcuty.FacultyId
-                    join uni in _fixture.UniversityList on falcuty.RegistrationNumber equals uni.RegistrationNumber
+                    join faculty in _fixture.FacultyList on department.FacultyId equals faculty.FacultyId
+                    join uni in _fixture.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
                     group department by new { uni.PropertyType, uni.BuildingOwnership } into table3
                     select new
                     {
