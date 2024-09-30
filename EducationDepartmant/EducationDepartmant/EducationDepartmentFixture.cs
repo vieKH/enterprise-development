@@ -16,9 +16,9 @@ public class EducationDepartmentFixture
         UniversityList =
             [
                 new University("UNI001", "University of Technology and Economics", "34 Tech Street", "Municipal", "Federal", "Ivan Yefimovich Petrov", "PhD", "Professor"),
-                new University("UNI002", "Medical University", "456 Health Road", "Private", "Private", "Anna Ivanova Vladimirovna", "Doctor", "Professor"),
-                new University("UNI003", "Pedagogical University", "321 Education Street", "Municipal", "Municipal", "Olga Petrova", "PhD", "Professor"),
-                new University("UNI004", "University of Arts", "654 Art Boulevard", "Private", "Private", "Marina Vasilievna Smirnova", "MA", "Associate Professor"),
+                new University("UNI002", "Medical University", "456 Health Road", "Private", "Private", "Anna Ivanova Vladimirovna", "Doctor of Medicine", "Professor"),
+                new University("UNI003", "Pedagogical University", "321 Education Street", "Municipal", "Municipal", "Olga Petrova", "Doctor of Science", "Professor"),
+                new University("UNI004", "University of Arts", "654 Art Boulevard", "Private", "Private", "Marina Vasilievna Smirnova", "Master of Arts", "Associate Professor"),
                 new University("UNI005", "Law University", "852 Justice Boulevard", "Private", "Municipal", "Nikolai Vasilyevich Sergeev", "PhD", "Professor"),
                 new University("UNI006", "University of Foreign Languages", "741 Pology Street", "Municipal", "Municipal", "Tatiana Nikolaevna Fedorova", "PhD", "Professor"),
                 new University("UNI007", "Sports University", "963 Lenin Prospekt", "Municipal", "Federal", "Sergey Sergeevich Kozlov", "PhD", "Professor"),
