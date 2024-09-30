@@ -1,9 +1,8 @@
-﻿
-namespace EducationDepartment.Domain;
+﻿namespace EducationDepartment.Domain;
 
-public class Department(int FacultyID, string NameDep, string DepartmentID)
+public class Department(int facultyId, string nameDep, string departmentId)
 {
-    public int FacultyID { get; set; } = FacultyID;
-    public string NameDep { get; set;} = NameDep;
-    public string DepartmentID { get; set; } = DepartmentID;
+    public int FacultyId { get; set; } = facultyId;
+    public string NameDep { get; set;} = nameDep;
+    public string DepartmentID { get; set; } = departmentId;
 }

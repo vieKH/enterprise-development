@@ -1,8 +1,8 @@
 ﻿namespace EducationDepartment.Domain;
 
-public class Faculty(int FacultyID, string NameFa, string RegistrationNumber)
+public class Faculty(int facultyId, string nameFa, string registrationNumber)
 {
-    public int FacultyID { get; set; } = FacultyID;
-    public string NameFa { get; set; } = NameFa;
-    public string RegistrationNumber { get;  set; } = RegistrationNumber;
+    public int FacultyId { get; set; } = facultyId;
+    public string NameFa { get; set; } = nameFa;
+    public string RegistrationNumber { get;  set; } = registrationNumber;
 }
