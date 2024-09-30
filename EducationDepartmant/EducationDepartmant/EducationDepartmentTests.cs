@@ -93,7 +93,6 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
             ]);
     }
 
-
     [Fact]
     public void InfoUniMaxDepartment()
     {
@@ -120,7 +119,6 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                 new {UniName = "Sports University", UniRegis = "UNI007", UniDepartment = 1},
                 new {UniName = "Pedagogical University", UniRegis = "UNI003", UniDepartment = 1},
                 new {UniName = "Law University", UniRegis = "UNI005", UniDepartment = 1},
-
             ]);
     }
 
