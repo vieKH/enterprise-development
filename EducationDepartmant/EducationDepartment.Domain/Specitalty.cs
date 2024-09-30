@@ -1,9 +1,8 @@
 ﻿namespace EducationDepartment.Domain;
 
-public class Specitalty(int SpecialtyID, string Code, string Name)
+public class Specitalty(string SpecialtyID, string NameSp)
 {
-    public int SpecialtyID { get; set; } = SpecialtyID;
-    public string Code { get; set; } = Code;
-    public string Name { get; set; } = Name;
+    public string SpecialtyID { get; set; } = SpecialtyID;
+    public string NameSp { get; set; } = NameSp;
 
 }
