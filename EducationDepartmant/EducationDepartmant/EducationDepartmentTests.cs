@@ -1,10 +1,4 @@
-﻿using EducationDepartment.Domain;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Globalization;
-using Xunit.Sdk;
-namespace EducationDepartment.Test;
-
+﻿namespace EducationDepartment.Test;
 
 public class EducationDepartmentTests(EducationDepartmentFixture fixture) : IClassFixture<EducationDepartmentFixture>
 {
@@ -43,9 +37,9 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
     {
         var result = (from faculty in _fixture.FacultyList
                       join university in _fixture.UniversityList on faculty.RegistrationNumber equals university.RegistrationNumber
-                      join department in _fixture.DepartmentsList on faculty.FacultyID equals department.FacultyID
-                      join depSpecialty in _fixture.DepartmentSpecialtyList on department.DepartmentID equals depSpecialty.DepartmentID
-                      join specialty in _fixture.SpecitaltyList on depSpecialty.SpecialtyID equals specialty.SpecialtyID
+                      join department in _fixture.DepartmentsList on faculty.FacultyId equals department.FacultyId
+                      join depSpecialty in _fixture.DepartmentSpecialtyList on department.DepartmentId equals depSpecialty.DepartmentId
+                      join specialty in _fixture.SpecialtyList on depSpecialty.SpecialtyId equals specialty.SpecialtyId
                       where university.NameUni is "University of Technology and Economics"
                       orderby faculty.NameFa
                       select new
@@ -69,9 +63,9 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
     }
 
     [Fact]
-    public void topFiveSpecialtyWithGroup()
+    public void TopFiveSpecialtyWithGroup()
     {   
-        var result = (from specialty in _fixture.SpecitaltyList
+        var result = (from specialty in _fixture.SpecialtyList
                       group specialty by specialty.NameSp into table
                       select new
                       {
@@ -94,11 +88,11 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
     }
 
     [Fact]
-    public void InfoUniMaxDepartment()
+    public void InfoUniversityByOrderMaxDepartment()
     {
         var result = (from uni in _fixture.UniversityList
                       join faculty in _fixture.FacultyList on uni.RegistrationNumber equals faculty.RegistrationNumber
-                      join department in _fixture.DepartmentsList on faculty.FacultyID equals department.FacultyID
+                      join department in _fixture.DepartmentsList on faculty.FacultyId equals department.FacultyId
                       group uni by new { uni.RegistrationNumber, uni.NameUni } into table
                       select new
                       {
@@ -123,12 +117,12 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
     }
 
     [Fact]
-    public void InfoPropertTypeAndTotalGroups()
+    public void InfoTotalGroupsByPropertyType()
     {
-        var result = (from specialty in _fixture.SpecitaltyList
-                    join deSpe in _fixture.DepartmentSpecialtyList on specialty.SpecialtyID equals deSpe.SpecialtyID
-                    join department in _fixture.DepartmentsList on deSpe.DepartmentID equals department.DepartmentID
-                    join faculty in _fixture.FacultyList on department.FacultyID equals faculty.FacultyID
+        var result = (from specialty in _fixture.SpecialtyList
+                    join deSpe in _fixture.DepartmentSpecialtyList on specialty.SpecialtyId equals deSpe.SpecialtyId
+                    join department in _fixture.DepartmentsList on deSpe.DepartmentId equals department.DepartmentId
+                    join faculty in _fixture.FacultyList on department.FacultyId equals faculty.FacultyId
                     join uni in _fixture.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
                     where uni.PropertyType is "Private"
                     group specialty by new { uni.RegistrationNumber, uni.NameUni, uni.PropertyType } into table
@@ -151,12 +145,12 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
     }
 
     [Fact]
-    void InfoDepFaSpeByBuildingAndProperty()
+    void InfoDepartmentsFacultiesSpecialtiesByBuildingAndProperty()
     {
-        var tmp1 = (from specialty in _fixture.SpecitaltyList
-                    join deSpe in _fixture.DepartmentSpecialtyList on specialty.SpecialtyID equals deSpe.SpecialtyID
-                    join department in _fixture.DepartmentsList on deSpe.DepartmentID equals department.DepartmentID
-                    join faculty in _fixture.FacultyList on department.FacultyID equals faculty.FacultyID
+        var tmp1 = (from specialty in _fixture.SpecialtyList
+                    join deSpe in _fixture.DepartmentSpecialtyList on specialty.SpecialtyId equals deSpe.SpecialtyId
+                    join department in _fixture.DepartmentsList on deSpe.DepartmentId equals department.DepartmentId
+                    join faculty in _fixture.FacultyList on department.FacultyId equals faculty.FacultyId
                     join uni in _fixture.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
                     group specialty by new { uni.PropertyType, uni.BuildingOwnership } into table1
                     select new
@@ -179,7 +173,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
             ).ToList();
 
         var tmp3 = (from department in _fixture.DepartmentsList
-                    join falcuty in _fixture.FacultyList on department.FacultyID equals falcuty.FacultyID
+                    join falcuty in _fixture.FacultyList on department.FacultyId equals falcuty.FacultyId
                     join uni in _fixture.UniversityList on falcuty.RegistrationNumber equals uni.RegistrationNumber
                     group department by new { uni.PropertyType, uni.BuildingOwnership } into table3
                     select new

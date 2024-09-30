@@ -6,7 +6,7 @@ public class EducationDepartmentFixture
 {
     public List<DepartmentSpecialty> DepartmentSpecialtyList { get; set; }
     public List<Faculty> FacultyList { get; set; }
-    public List<Specitalty> SpecitaltyList { get; set; }
+    public List<Specitalty> SpecialtyList { get; set; }
     public List<Department> DepartmentsList {  get; set; }
     public List<University> UniversityList { get; set; }
 
@@ -65,7 +65,7 @@ public class EducationDepartmentFixture
                 new Department(7001, "Department of Sports Physiologys", "7001-DSP"),
             ];
 
-        SpecitaltyList =
+        SpecialtyList =
             [
                 new Specitalty("1001.05.03", "Computer Software Science", 7),
                 new Specitalty("1001.04.03", "Computer Science", 8),
