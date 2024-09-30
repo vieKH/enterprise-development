@@ -22,9 +22,9 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./EducationDepartment/EducationDepartment.sln
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore ./EducationDepartment/EducationDepartment.sln
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
