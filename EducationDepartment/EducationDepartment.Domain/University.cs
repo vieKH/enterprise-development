@@ -5,7 +5,7 @@ public class University(string registrationNumber, string nameUniversity, string
 {
     public string RegistrationNumber { get; set; } = registrationNumber;
     public string NameUniversity { get; set; } = nameUniversity;
-    public string Adress { get; set; } = address;
+    public string Address { get; set; } = address;
     public string PropertyType { get; set; } = propertyType;
     public string BuildingOwnership { get; set; } = buildingOwnership;
     public string RectorFullName { get; set; } = rectorFullName;

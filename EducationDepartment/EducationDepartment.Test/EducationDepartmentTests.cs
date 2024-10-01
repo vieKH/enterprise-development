@@ -13,7 +13,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                               {
                                   university.RegistrationNumber,
                                   university.NameUniversity,
-                                  university.Adress,
+                                  university.Address,
                                   university.PropertyType,
                                   university.BuildingOwnership,
                                   university.RectorFullName,
@@ -24,7 +24,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
 
         Assert.Equal("UNI006", infoUniversity[0].RegistrationNumber);
         Assert.Equal("University of Foreign Languages", infoUniversity[0].NameUniversity);
-        Assert.Equal("741 Pology Street", infoUniversity[0].Adress);
+        Assert.Equal("741 Pology Street", infoUniversity[0].Address);
         Assert.Equal("Municipal", infoUniversity[0].PropertyType);
         Assert.Equal("Municipal", infoUniversity[0].BuildingOwnership);
         Assert.Equal("Tatiana Nikolaevna Fedorova", infoUniversity[0].RectorFullName);
