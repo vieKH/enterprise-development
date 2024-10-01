@@ -12,7 +12,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                               select new
                               {
                                   university.RegistrationNumber,
-                                  university.NameUni,
+                                  university.NameUniversity,
                                   university.Adress,
                                   university.PropertyType,
                                   university.BuildingOwnership,
@@ -23,7 +23,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
 
 
         Assert.Equal("UNI006", infoUniversity[0].RegistrationNumber);
-        Assert.Equal("University of Foreign Languages", infoUniversity[0].NameUni);
+        Assert.Equal("University of Foreign Languages", infoUniversity[0].NameUniversity);
         Assert.Equal("741 Pology Street", infoUniversity[0].Adress);
         Assert.Equal("Municipal", infoUniversity[0].PropertyType);
         Assert.Equal("Municipal", infoUniversity[0].BuildingOwnership);
@@ -40,25 +40,25 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                       join department in _fixture.DepartmentsList on faculty.FacultyId equals department.FacultyId
                       join depSpecialty in _fixture.DepartmentSpecialtyList on department.DepartmentId equals depSpecialty.DepartmentId
                       join specialty in _fixture.SpecialtyList on depSpecialty.SpecialtyId equals specialty.SpecialtyId
-                      where university.NameUni is "University of Technology and Economics"
-                      orderby faculty.NameFa
+                      where university.NameUniversity is "University of Technology and Economics"
+                      orderby faculty.NameFaculty
                       select new
                       {
-                          university.NameUni,
-                          faculty.NameFa,
-                          department.NameDep,
-                          specialty.NameSp
+                          university.NameUniversity,
+                          faculty.NameFaculty,
+                          department.NameDepartment,
+                          specialty.NameSpecialty
                       }
             ).ToList();
 
         Assert.Equal(result,
             [
-                new {NameUni = "University of Technology and Economics", NameFa = "Faculty of Finance and Banking", NameDep = "Department of Finance", NameSp="Finance and Banking"},
-                new {NameUni = "University of Technology and Economics", NameFa = "Faculty of Information Technology", NameDep = "Department of Software Engineering", NameSp="Computer Software Science"},
-                new {NameUni = "University of Technology and Economics", NameFa = "Faculty of Information Technology", NameDep = "Department of Information", NameSp="Computer Science"},
-                new {NameUni = "University of Technology and Economics", NameFa = "Faculty of Mechanical Engineering", NameDep = "Department of Robotics", NameSp="Mechanical Engineering"},
-                new {NameUni = "University of Technology and Economics", NameFa = "Faculty of Mechanical Engineering", NameDep = "Department of Robotics", NameSp="Mechanical Collaboration"},
-                new {NameUni = "University of Technology and Economics", NameFa = "Faculty of Translation", NameDep = "Department of Languages", NameSp="Translation Studies"},
+                new {NameUniversity = "University of Technology and Economics", NameFaculty = "Faculty of Finance and Banking", NameDepartment = "Department of Finance", NameSpecialty="Finance and Banking"},
+                new {NameUniversity = "University of Technology and Economics", NameFaculty = "Faculty of Information Technology", NameDepartment = "Department of Software Engineering", NameSpecialty="Computer Software Science"},
+                new {NameUniversity = "University of Technology and Economics", NameFaculty = "Faculty of Information Technology", NameDepartment = "Department of Information", NameSpecialty="Computer Science"},
+                new {NameUniversity = "University of Technology and Economics", NameFaculty = "Faculty of Mechanical Engineering", NameDepartment = "Department of Robotics", NameSpecialty="Mechanical Engineering"},
+                new {NameUniversity = "University of Technology and Economics", NameFaculty = "Faculty of Mechanical Engineering", NameDepartment = "Department of Robotics", NameSpecialty="Mechanical Collaboration"},
+                new {NameUniversity = "University of Technology and Economics", NameFaculty = "Faculty of Translation", NameDepartment = "Department of Languages", NameSpecialty="Translation Studies"},
             ]);
     }
 
@@ -66,10 +66,10 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
     public void TopFiveSpecialtyWithGroup()
     {
         var result = (from specialty in _fixture.SpecialtyList
-                      group specialty by specialty.NameSp into table
+                      group specialty by specialty.NameSpecialty into table
                       select new
                       {
-                          NameSpe = table.Key,
+                          NameSpecialty = table.Key,
                           TotalGroups = table.Sum(p => p.NumberOfGroups)
                       }
                       )
@@ -79,11 +79,11 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
 
         Assert.Equal(result,
             [
-                new {NameSpe = "Translation Studies", TotalGroups = 25},
-                new {NameSpe = "Pedagogye", TotalGroups = 22},
-                new {NameSpe = "Computer Software Science", TotalGroups = 14},
-                new {NameSpe = "Finance and Banking", TotalGroups = 14},
-                new {NameSpe = "Sports Science", TotalGroups = 13}
+                new {NameSpecialty = "Translation Studies", TotalGroups = 25},
+                new {NameSpecialty = "Pedagogye", TotalGroups = 22},
+                new {NameSpecialty = "Computer Software Science", TotalGroups = 14},
+                new {NameSpecialty = "Finance and Banking", TotalGroups = 14},
+                new {NameSpecialty = "Sports Science", TotalGroups = 13}
             ]);
     }
 
@@ -93,26 +93,26 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
         var result = (from uni in _fixture.UniversityList
                       join faculty in _fixture.FacultyList on uni.RegistrationNumber equals faculty.RegistrationNumber
                       join department in _fixture.DepartmentsList on faculty.FacultyId equals department.FacultyId
-                      group uni by new { uni.RegistrationNumber, uni.NameUni } into table
+                      group uni by new { uni.RegistrationNumber, uni.NameUniversity } into table
                       select new
                       {
-                          UniName = table.Key.NameUni,
-                          UniRegis = table.Key.RegistrationNumber,
-                          UniDepartment = table.Count()
+                          NameUniversity = table.Key.NameUniversity,
+                          RegistrationNumber = table.Key.RegistrationNumber,
+                          TotalDepartments = table.Count()
                       })
-                      .OrderByDescending(x => x.UniDepartment)
-                      .ThenByDescending(x => x.UniName)
+                      .OrderByDescending(x => x.TotalDepartments)
+                      .ThenByDescending(x => x.NameUniversity)
                       .ToList();
 
         Assert.Equal(result,
             [
-                new {UniName = "University of Technology and Economics", UniRegis = "UNI001", UniDepartment = 5},
-                new {UniName = "University of Foreign Languages", UniRegis = "UNI006", UniDepartment = 4},
-                new {UniName = "University of Arts", UniRegis = "UNI004", UniDepartment = 4},
-                new {UniName = "Medical University", UniRegis = "UNI002", UniDepartment = 2},
-                new {UniName = "Sports University", UniRegis = "UNI007", UniDepartment = 1},
-                new {UniName = "Pedagogical University", UniRegis = "UNI003", UniDepartment = 1},
-                new {UniName = "Law University", UniRegis = "UNI005", UniDepartment = 1},
+                new {NameUniversity = "University of Technology and Economics", RegistrationNumber = "UNI001", TotalDepartments = 5},
+                new {NameUniversity = "University of Foreign Languages", RegistrationNumber = "UNI006", TotalDepartments = 4},
+                new {NameUniversity = "University of Arts", RegistrationNumber = "UNI004", TotalDepartments = 4},
+                new {NameUniversity = "Medical University", RegistrationNumber = "UNI002", TotalDepartments = 2},
+                new {NameUniversity = "Sports University", RegistrationNumber = "UNI007", TotalDepartments = 1},
+                new {NameUniversity = "Pedagogical University", RegistrationNumber = "UNI003", TotalDepartments = 1},
+                new {NameUniversity = "Law University", RegistrationNumber = "UNI005", TotalDepartments = 1},
             ]);
     }
 
@@ -125,12 +125,12 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                       join faculty in _fixture.FacultyList on department.FacultyId equals faculty.FacultyId
                       join uni in _fixture.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
                       where uni.PropertyType is "Private"
-                      group specialty by new { uni.RegistrationNumber, uni.NameUni, uni.PropertyType } into table
+                      group specialty by new { uni.RegistrationNumber, uni.NameUniversity, uni.PropertyType } into table
                       select new
                       {
                           RegistrationNumber = table.Key.RegistrationNumber,
-                          UniName = table.Key.NameUni,
-                          Property = table.Key.PropertyType,
+                          NameUniversity = table.Key.NameUniversity,
+                          PropertyType = table.Key.PropertyType,
                           TotalGroups = table.Sum(p => p.NumberOfGroups)
                       })
                     .OrderByDescending(p => p.TotalGroups)
@@ -138,14 +138,14 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
 
         Assert.Equal(result,
             [
-                new {RegistrationNumber = "UNI004", UniName = "University of Arts", Property = "Private", TotalGroups = 21},
-                new {RegistrationNumber = "UNI002", UniName = "Medical University", Property = "Private", TotalGroups = 18},
-                new {RegistrationNumber = "UNI005", UniName = "Law University", Property = "Private", TotalGroups = 8}
+                new {RegistrationNumber = "UNI004", NameUniversity = "University of Arts", PropertyType = "Private", TotalGroups = 21},
+                new {RegistrationNumber = "UNI002", NameUniversity = "Medical University", PropertyType = "Private", TotalGroups = 18},
+                new {RegistrationNumber = "UNI005", NameUniversity = "Law University", PropertyType = "Private", TotalGroups = 8}
             ]);
     }
 
     [Fact]
-    void InfoDepartmentsFacultiesSpecialtiesByBuildingAndProperty()
+    public void InfoDepartmentsFacultiesSpecialtiesByBuildingAndProperty()
     {
         var tmp1 = (from specialty in _fixture.SpecialtyList
                     join deSpe in _fixture.DepartmentSpecialtyList on specialty.SpecialtyId equals deSpe.SpecialtyId
