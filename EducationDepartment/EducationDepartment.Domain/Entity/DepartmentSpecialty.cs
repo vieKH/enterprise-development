@@ -2,7 +2,7 @@
 
 public class DepartmentSpecialty(string departmentId, string specialtyId)
 {
-    public string DepartmentId { get; set; } = departmentId;
-    public string SpecialtyId { get; set; } = specialtyId;
+    public required string DepartmentId { get; set; } = departmentId;
+    public required string SpecialtyId { get; set; } = specialtyId;
 }
 
