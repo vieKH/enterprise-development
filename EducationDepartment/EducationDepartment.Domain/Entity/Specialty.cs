@@ -1,8 +1,9 @@
-﻿namespace EducationDepartment.Domain;
+﻿namespace EducationDepartment.Domain.Entity;
 
-public class Specialty(string specialtyId, string nameSpecialty, int numberOfGroups)
+public class Specialty()
 {
-    public required string SpecialtyId { get; set; } = specialtyId;
-    public required string NameSpecialty { get; set; } = nameSpecialty;
-    public int NumberOfGroups { get; set; } = numberOfGroups;
+    public required string SpecialtyId { get; set; } 
+    public required string NameSpecialty { get; set; }
+    public required int NumberOfGroups { get; set; } 
 }
+

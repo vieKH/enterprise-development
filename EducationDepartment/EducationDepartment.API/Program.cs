@@ -1,3 +1,4 @@
+using EducationDepartment.API;
 using EducationDepartment.Domain.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IRepository, Repository>();
+builder.Services.AddAutoMapper(typeof(Mapping));
 
 var app = builder.Build();
 

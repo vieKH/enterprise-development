@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using EducationDepartment.Domain.Entity;
 using EducationDepartment.Domain.Repository;
+using EducationDepartment.API.Dto;
+using AutoMapper;
 
 namespace EducationDepartment.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DepartmentController(IRepository repository) : ControllerBase
+public class DepartmentController(IRepository repository, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Return list of departments
@@ -40,8 +42,10 @@ public class DepartmentController(IRepository repository) : ControllerBase
     /// <param name="department">Department's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] Department department)
+    public IActionResult Post([FromBody] DepartmentDto value)
     {
+        var department = mapper.Map<Department>(value); 
+
         repository.PostDepartment(department);
 
         return Ok();

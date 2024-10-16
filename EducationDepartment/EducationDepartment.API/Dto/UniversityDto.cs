@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace EducationDepartment.API.Dto;
+﻿namespace EducationDepartment.API.Dto;
 
 public class UniversityDto
 {
