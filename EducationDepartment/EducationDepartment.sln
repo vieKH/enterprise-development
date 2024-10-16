@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationDepartment.Domain", "EducationDepartment.Domain\EducationDepartment.Domain.csproj", "{C7AC4B96-EF68-48A3-8013-C8FC70584293}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationDepartment.Domain", "EducationDepartment.Domain\EducationDepartment.Domain.csproj", "{C7AC4B96-EF68-48A3-8013-C8FC70584293}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationDepartment.Test", "EducationDepartment.Test\EducationDepartment.Test.csproj", "{17614317-E679-41D1-A0E5-A478131AC795}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationDepartment.Test", "EducationDepartment.Test\EducationDepartment.Test.csproj", "{17614317-E679-41D1-A0E5-A478131AC795}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationDepartment.API", "EducationDepartment.API\EducationDepartment.API.csproj", "{FBDBDEC6-4DCF-4527-BB49-BB3D700C5D12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{17614317-E679-41D1-A0E5-A478131AC795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17614317-E679-41D1-A0E5-A478131AC795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17614317-E679-41D1-A0E5-A478131AC795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBDBDEC6-4DCF-4527-BB49-BB3D700C5D12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBDBDEC6-4DCF-4527-BB49-BB3D700C5D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBDBDEC6-4DCF-4527-BB49-BB3D700C5D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBDBDEC6-4DCF-4527-BB49-BB3D700C5D12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

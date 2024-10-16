@@ -1,4 +1,5 @@
 ﻿using EducationDepartment.Domain;
+using EducationDepartment.Domain.Entity;
 
 namespace EducationDepartment.Test;
 
