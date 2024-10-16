@@ -1,4 +1,4 @@
-﻿namespace EducationDepartment.Domain;
+﻿namespace EducationDepartment.Domain.Entity;
 
 public class University(string registrationNumber, string nameUniversity, string address, string propertyType,
     string buildingOwnership, string rectorFullName, string degree, string tittle)

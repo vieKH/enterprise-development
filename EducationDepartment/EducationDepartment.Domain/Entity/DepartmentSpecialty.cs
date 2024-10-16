@@ -1,4 +1,4 @@
-﻿namespace EducationDepartment.Domain;
+﻿namespace EducationDepartment.Domain.Entity;
 
 public class DepartmentSpecialty(string departmentId, string specialtyId)
 {
