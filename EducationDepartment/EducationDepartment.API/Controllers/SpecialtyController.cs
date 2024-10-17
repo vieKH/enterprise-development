@@ -1,22 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EducationDepartment.Domain.Entity;
-using EducationDepartment.Domain.Repository;
-using EducationDepartment.Domain;
+using EducationDepartment.API.Services;
+using EducationDepartment.API.Dto;
 
 namespace EducationDepartment.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SpecialtyController(IRepository repository) : ControllerBase
+public class SpecialtyController(SpecialtyService service) : ControllerBase
 {
     /// <summary>
     /// Return list of specialties
     /// </summary>
     /// <returns> List of specialties</returns>
     [HttpGet]
-    public IEnumerable<Specialty> Get()
+    public IActionResult Get()
     {
-        return repository.GetSpecialties();
+        return Ok(service.GetAll());
     }
 
     /// <summary>
@@ -27,7 +26,7 @@ public class SpecialtyController(IRepository repository) : ControllerBase
     [HttpGet("{id}")]
     public IActionResult Get(string id)
     {
-        var specialty = repository.GetSpecialty(id);
+        var specialty = service.GetById(id);
 
         if (specialty == null)
             return NotFound();
@@ -41,9 +40,9 @@ public class SpecialtyController(IRepository repository) : ControllerBase
     /// <param name="specialty">Specialty's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] Specialty specialty)
+    public IActionResult Post([FromBody] SpecialtyDto specialty)
     {
-        repository.PostSpecialty(specialty);
+        service.Post(specialty);
 
         return Ok();
     }
@@ -55,9 +54,9 @@ public class SpecialtyController(IRepository repository) : ControllerBase
     /// <param name="specialty"></param>
     /// <returns>Success or not</returns>
     [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] Specialty specialty)
+    public IActionResult Put(string id, [FromBody] SpecialtyDto specialty)
     {
-        if (!repository.PutSpecialty(id, specialty))
+        if (!service.Put(id, specialty))
             return NotFound();
 
         return Ok();
@@ -72,7 +71,7 @@ public class SpecialtyController(IRepository repository) : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
-        if (!repository.DeleteSpecialty(id))
+        if (!service.Delete(id))
             return NotFound();
 
         return Ok();

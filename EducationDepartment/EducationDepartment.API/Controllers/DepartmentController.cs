@@ -1,23 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using EducationDepartment.Domain.Entity;
-using EducationDepartment.Domain.Repository;
 using EducationDepartment.API.Dto;
 using AutoMapper;
+using EducationDepartment.Domain.Repositories;
+using EducationDepartment.API.Services;
 
 namespace EducationDepartment.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DepartmentController(IRepository repository, IMapper mapper) : ControllerBase
+public class DepartmentController(DepartmentService service) : ControllerBase
 {
     /// <summary>
     /// Return list of departments
     /// </summary>
     /// <returns> List of departments</returns>
     [HttpGet]
-    public IEnumerable<Department> Get()
+    public IActionResult Get()
     {
-        return repository.GetDepartments();
+        return Ok(service.GetAll());
     }
 
     /// <summary>
@@ -28,7 +29,7 @@ public class DepartmentController(IRepository repository, IMapper mapper) : Cont
     [HttpGet("{id}")]
     public IActionResult Get(string id)
     {
-        var department = repository.GetDepartment(id);
+        var department = service.GetById(id);
 
         if (department == null)
             return NotFound();
@@ -42,11 +43,9 @@ public class DepartmentController(IRepository repository, IMapper mapper) : Cont
     /// <param name="department">Department's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] DepartmentDto value)
+    public IActionResult Post([FromBody] DepartmentDto department)
     {
-        var department = mapper.Map<Department>(value); 
-
-        repository.PostDepartment(department);
+        service.Post(department);
 
         return Ok();
     }
@@ -58,9 +57,9 @@ public class DepartmentController(IRepository repository, IMapper mapper) : Cont
     /// <param name="department">Department's information</param>
     /// <returns>Success or not</returns>
     [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] Department department)
+    public IActionResult Put(string id, [FromBody] DepartmentDto department)
     {
-        if (!repository.PutDepartment(id, department))
+        if (!service.Put(id, department))
             return NotFound();
 
         return Ok();
@@ -75,7 +74,7 @@ public class DepartmentController(IRepository repository, IMapper mapper) : Cont
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
-        if (!repository.DeleteDepartment(id))
+        if (!service.Delete(id))
             return NotFound();
 
         return Ok();

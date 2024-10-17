@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EducationDepartment.Domain.Entity;
-using EducationDepartment.Domain.Repository;
+using EducationDepartment.API.Services;
+using EducationDepartment.API.Dto;
 
 namespace EducationDepartment.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DepartmentSpecialtyController(IRepository repository) : ControllerBase
+public class DepartmentSpecialtyController(DepartmentSpecialtyService service) : ControllerBase
 {
     /// <summary>
     /// Return list of (department specialty)
     /// </summary>
     /// <returns> List of (department specialty)</returns>
     [HttpGet]
-    public IEnumerable<DepartmentSpecialty> Get()
+    public IActionResult Get()
     {
-        return repository.GetDepartmentSpecialties();
+        return Ok(service.GetAll());
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ public class DepartmentSpecialtyController(IRepository repository) : ControllerB
     [HttpGet("{id}")]
     public IActionResult Get(string id)
     {
-        var departmentSpecialty = repository.GetDepartmentSpecialty(id);
+        var departmentSpecialty = service.GetById(id);
 
         if (departmentSpecialty == null)
             return NotFound();
@@ -40,9 +40,9 @@ public class DepartmentSpecialtyController(IRepository repository) : ControllerB
     /// <param name="departmentSpecialty">(Department specialty)'s information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] DepartmentSpecialty departmentSpecialty)
+    public IActionResult Post([FromBody] DepartmentSpecialtyDto departmentSpecialty)
     {
-        repository.PostDepartmentSpecialty(departmentSpecialty);
+        service.Post(departmentSpecialty);
 
         return Ok();
     }
@@ -54,9 +54,9 @@ public class DepartmentSpecialtyController(IRepository repository) : ControllerB
     /// <param name="departmentSpecialty">(Department specialty)'s information</param>
     /// <returns>Success or not</returns>
     [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] DepartmentSpecialty departmentSpecialty)
+    public IActionResult Put(string id, [FromBody] DepartmentSpecialtyDto departmentSpecialty)
     {
-        if (!repository.PutDepartmentSpecialty(id, departmentSpecialty))
+        if (!service.Put(id, departmentSpecialty))
             return NotFound();
 
         return Ok();
@@ -71,7 +71,7 @@ public class DepartmentSpecialtyController(IRepository repository) : ControllerB
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
-        if (!repository.DeleteDepartmentSpecialty(id))
+        if (!service.Delete(id))
             return NotFound();
 
         return Ok();

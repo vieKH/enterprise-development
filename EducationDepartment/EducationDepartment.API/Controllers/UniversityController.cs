@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EducationDepartment.Domain.Entity;
-using EducationDepartment.Domain.Repository;
+using EducationDepartment.API.Dto;
+using EducationDepartment.Domain.Repositories;
+using EducationDepartment.API.Services;
 
 namespace EducationDepartment.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UniversityController(IRepository repository) : ControllerBase
+public class UniversityController(UniversityService service) : ControllerBase
 {
     /// <summary>
     /// Return list of universities
     /// </summary>
     /// <returns> List of universities</returns>
     [HttpGet]
-    public IEnumerable<University> Get()
+    public IActionResult Get()
     {
-        return repository.GetUniversities();
+        return Ok(service.GetAll());
     }
 
     /// <summary>
@@ -26,7 +28,7 @@ public class UniversityController(IRepository repository) : ControllerBase
     [HttpGet("{id}")]
     public IActionResult Get(string id)
     {
-        var university = repository.GetUniversity(id);
+        var university = service.GetById(id);
 
         if (university == null)
             return NotFound();
@@ -40,9 +42,9 @@ public class UniversityController(IRepository repository) : ControllerBase
     /// <param name="university">University's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] University university)
+    public IActionResult Post([FromBody] UniversityDto university)
     {
-        repository.PostUniversity(university);
+        service.Post(university);
 
         return Ok();
     }
@@ -54,9 +56,9 @@ public class UniversityController(IRepository repository) : ControllerBase
     /// <param name="university">University's information</param>
     /// <returns>Success or not</returns>
     [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] University university)
+    public IActionResult Put(string id, [FromBody] UniversityDto value)
     {
-        if (!repository.PutUniversity(id, university))
+        if (!service.Put(id, value))
             return NotFound();
 
         return Ok();
@@ -71,7 +73,7 @@ public class UniversityController(IRepository repository) : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
-        if (!repository.DeleteUniversity(id))
+        if (!service.Delete(id))
             return NotFound();
 
         return Ok();

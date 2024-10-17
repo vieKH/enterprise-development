@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EducationDepartment.Domain.Entity;
-using EducationDepartment.Domain.Repository;
+using EducationDepartment.API.Services;
+using EducationDepartment.API.Dto;
 
 namespace EducationDepartment.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class FacultyController(IRepository repository) : ControllerBase
+public class FacultyController(FacultyService service) : ControllerBase
 {
     /// <summary>
     /// Return list of faculties
     /// </summary>
     /// <returns> List of faculties</returns>
     [HttpGet]
-    public IEnumerable<Faculty> Get()
+    public IActionResult Get()
     {
-        return repository.GetFaculties();
+        return Ok(service.GetAll());
     }
 
     /// <summary>
@@ -24,9 +24,9 @@ public class FacultyController(IRepository repository) : ControllerBase
     /// <param name="id">Faculty's id</param>
     /// <returns>Success or not</returns>
     [HttpGet("{id}")]
-    public IActionResult Get(int id)
+    public IActionResult Get(string id)
     {
-        var faculty = repository.GetFaculty(id);
+        var faculty = service.GetById(id);
 
         if (faculty == null)
             return NotFound();
@@ -40,9 +40,9 @@ public class FacultyController(IRepository repository) : ControllerBase
     /// <param name="faculty">Faculty's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] Faculty faculty)
+    public IActionResult Post([FromBody] FacultyDto faculty)
     {
-        repository.PostFaculty(faculty);
+        service.Post(faculty);
 
         return Ok();
     }
@@ -54,9 +54,9 @@ public class FacultyController(IRepository repository) : ControllerBase
     /// <param name="faculty">Faculty's information</param>
     /// <returns>Success or not</returns>
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] Faculty faculty)
+    public IActionResult Put(string id, [FromBody] FacultyDto faculty)
     {
-        if (!repository.PutFaculty(id, faculty))
+        if (!service.Put(id, faculty))
             return NotFound();
 
         return Ok();
@@ -69,9 +69,9 @@ public class FacultyController(IRepository repository) : ControllerBase
     /// <param name="id">Faculty's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(string id)
     {
-        if (!repository.DeleteFaculty(id))
+        if (!service.Delete(id))
             return NotFound();
 
         return Ok();

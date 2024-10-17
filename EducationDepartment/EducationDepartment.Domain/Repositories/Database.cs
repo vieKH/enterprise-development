@@ -1,8 +1,8 @@
 ﻿using EducationDepartment.Domain.Entity;
 
-namespace EducationDepartment.Test;
+namespace EducationDepartment.Domain.Repositories;
 
-public class EducationDepartmentFixture
+public class Database
 {
     public List<DepartmentSpecialty> DepartmentSpecialtyList { get; set; }
     public List<Faculty> FacultyList { get; set; }
@@ -10,7 +10,7 @@ public class EducationDepartmentFixture
     public List<Department> DepartmentsList { get; set; }
     public List<University> UniversityList { get; set; }
 
-    public EducationDepartmentFixture()
+    public Database()
     {
         UniversityList =
             [
@@ -192,5 +192,3 @@ public class EducationDepartmentFixture
 
     }
 }
-    
-        
