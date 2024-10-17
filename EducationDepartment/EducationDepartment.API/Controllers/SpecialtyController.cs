@@ -23,7 +23,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     }
 
     /// <summary>
-    /// Return specialty's information by id
+    /// Return specialty's information by specialty's id
     /// </summary>
     /// <param name="SpecialtyId">Specialty's id</param>
     /// <returns>Specialty's information</returns>
@@ -52,7 +52,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     }
 
     /// <summary>
-    /// Correct specialty's information by id
+    /// Correct specialty's information by specialty's id
     /// </summary>
     /// <param name="specialty"></param>
     /// <returns>Success or not</returns>

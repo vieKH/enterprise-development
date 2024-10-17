@@ -23,7 +23,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     }
 
     /// <summary>
-    /// Find department with departmentId
+    /// Find department by department's id
     /// </summary>
     /// <param name="departmentId">Department's id</param>
     /// <returns>Department's information</returns>
