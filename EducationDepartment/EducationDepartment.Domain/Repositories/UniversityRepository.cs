@@ -17,6 +17,7 @@ public class UniversityRepository(Database database) : IRepository<University>
     }
 
     public IEnumerable<University> GetAll() => database.UniversityList;
+
     public University? GetById(string id) => database.UniversityList.Find(a => a.RegistrationNumber == id);
 
     public void Post(University data)

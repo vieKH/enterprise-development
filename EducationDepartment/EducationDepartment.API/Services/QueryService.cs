@@ -64,7 +64,6 @@ public class QueryService(QueryRepository queryRepository)
                    NameDepartment = data.Item3,
                    NameSpecialty = data.Item4
                };
-
     }
 
     public IEnumerable<PropertyAndBuildingDto> TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()

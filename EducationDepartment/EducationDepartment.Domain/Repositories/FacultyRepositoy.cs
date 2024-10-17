@@ -17,6 +17,7 @@ public class FacultyRepository(Database database) : IRepository<Faculty>
     }
 
     public IEnumerable<Faculty> GetAll() => database.FacultyList;
+
     public Faculty? GetById(string id) => database.FacultyList.Find(a => a.FacultyId == id);
 
     public void Post(Faculty data)

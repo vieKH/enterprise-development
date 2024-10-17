@@ -17,6 +17,7 @@ public class DepartmentRepository(Database database) : IRepository<Department>
     }
 
     public IEnumerable<Department> GetAll() => database.DepartmentsList;
+
     public Department? GetById(string id) => database.DepartmentsList.Find(a => a.DepartmentId == id);
 
     public void Post(Department data)

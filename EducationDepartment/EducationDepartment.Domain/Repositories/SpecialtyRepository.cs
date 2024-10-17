@@ -17,6 +17,7 @@ public class SpecialtyRepository(Database database) : IRepository<Specialty>
     }
 
     public IEnumerable<Specialty> GetAll() => database.SpecialtyList;
+
     public Specialty? GetById(string id) => database.SpecialtyList.Find(a => a.SpecialtyId == id);
 
     public void Post(Specialty data)
