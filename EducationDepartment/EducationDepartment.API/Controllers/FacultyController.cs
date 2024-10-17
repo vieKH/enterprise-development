@@ -4,14 +4,18 @@ using EducationDepartment.API.Dto;
 
 namespace EducationDepartment.API.Controllers;
 
+/// <summary>
+/// Class for Faculty's controller
+/// </summary>
+/// <param name="service">Faculty's service</param>
 [Route("api/[controller]")]
 [ApiController]
 public class FacultyController(FacultyService service) : ControllerBase
 {
     /// <summary>
-    /// Return list of faculties
+    /// Get list of faculties
     /// </summary>
-    /// <returns> List of faculties</returns>
+    /// <returns>List of faculties</returns>
     [HttpGet]
     public IActionResult Get()
     {
@@ -19,14 +23,14 @@ public class FacultyController(FacultyService service) : ControllerBase
     }
 
     /// <summary>
-    /// Return faculty's information by id
+    /// Find faculty's information by faculty's id
     /// </summary>
-    /// <param name="id">Faculty's id</param>
-    /// <returns>Success or not</returns>
-    [HttpGet("{id}")]
-    public IActionResult Get(string id)
+    /// <param name="facultyId">Faculty's id</param>
+    /// <returns>Faculty's information</returns>
+    [HttpGet("{facultyId}")]
+    public IActionResult Get(string facultyId)
     {
-        var faculty = service.GetById(id);
+        var faculty = service.GetById(facultyId);
 
         if (faculty == null)
             return NotFound();
@@ -48,30 +52,28 @@ public class FacultyController(FacultyService service) : ControllerBase
     }
 
     /// <summary>
-    /// Correct faculty's information by id
+    /// Correct faculty's information by faculty's id
     /// </summary>
-    /// <param name="id">Faculty's id</param>
     /// <param name="faculty">Faculty's information</param>
     /// <returns>Success or not</returns>
-    [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] FacultyDto faculty)
+    [HttpPut]
+    public IActionResult Put([FromBody] FacultyDto faculty)
     {
-        if (!service.Put(id, faculty))
+        if (!service.Put(faculty))
             return NotFound();
 
         return Ok();
-
     }
 
     /// <summary>
-    /// Delete faculty by id
+    /// Delete faculty by faculty's id
     /// </summary>
-    /// <param name="id">Faculty's id</param>
+    /// <param name="facultyId">Faculty's id</param>
     /// <returns>Success or not</returns>
-    [HttpDelete("{id}")]
-    public IActionResult Delete(string id)
+    [HttpDelete("{facultyId}")]
+    public IActionResult Delete(string facultyId)
     {
-        if (!service.Delete(id))
+        if (!service.Delete(facultyId))
             return NotFound();
 
         return Ok();

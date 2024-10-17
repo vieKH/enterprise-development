@@ -17,5 +17,6 @@ public class UniversityService(UniversityRepository repository, IMapper mapper) 
     {
         repository.Post(mapper.Map<University>(dtoData)); 
     }
-    public bool Put(string id, UniversityDto dtoData) => repository.Put(id, mapper.Map<University>(dtoData));
+
+    public bool Put(UniversityDto dtoData) => repository.Put(mapper.Map<University>(dtoData));
 }

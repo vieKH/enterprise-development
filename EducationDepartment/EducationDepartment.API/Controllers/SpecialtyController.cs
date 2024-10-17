@@ -4,12 +4,16 @@ using EducationDepartment.API.Dto;
 
 namespace EducationDepartment.API.Controllers;
 
+/// <summary>
+/// Class for specialty's controller
+/// </summary>
+/// <param name="service">Specialty's service</param>
 [Route("api/[controller]")]
 [ApiController]
 public class SpecialtyController(SpecialtyService service) : ControllerBase
 {
     /// <summary>
-    /// Return list of specialties
+    /// Get list of specialties
     /// </summary>
     /// <returns> List of specialties</returns>
     [HttpGet]
@@ -21,12 +25,12 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <summary>
     /// Return specialty's information by id
     /// </summary>
-    /// <param name="id">Specialty's id</param>
-    /// <returns>Success or not</returns>
-    [HttpGet("{id}")]
-    public IActionResult Get(string id)
+    /// <param name="SpecialtyId">Specialty's id</param>
+    /// <returns>Specialty's information</returns>
+    [HttpGet("{SpecialtyId}")]
+    public IActionResult Get(string SpecialtyId)
     {
-        var specialty = service.GetById(id);
+        var specialty = service.GetById(SpecialtyId);
 
         if (specialty == null)
             return NotFound();
@@ -50,28 +54,26 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <summary>
     /// Correct specialty's information by id
     /// </summary>
-    /// <param name="id"></param>
     /// <param name="specialty"></param>
     /// <returns>Success or not</returns>
-    [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] SpecialtyDto specialty)
+    [HttpPut]
+    public IActionResult Put([FromBody] SpecialtyDto specialty)
     {
-        if (!service.Put(id, specialty))
+        if (!service.Put(specialty))
             return NotFound();
 
         return Ok();
-
     }
 
     /// <summary>
-    /// Delete specialty by id
+    /// Delete specialty by specialty's id
     /// </summary>
-    /// <param name="id">Specialty's id</param>
+    /// <param name="SpecialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
-    [HttpDelete("{id}")]
-    public IActionResult Delete(string id)
+    [HttpDelete("{SpecialtyId}")]
+    public IActionResult Delete(string SpecialtyId)
     {
-        if (!service.Delete(id))
+        if (!service.Delete(SpecialtyId))
             return NotFound();
 
         return Ok();

@@ -18,5 +18,5 @@ public class FacultyService(FacultyRepository repository, IMapper mapper): IServ
         repository.Post(mapper.Map<Faculty>(dtoData));
     }
 
-    public bool Put(string id, FacultyDto dtoData) => repository.Put(id, mapper.Map<Faculty>(dtoData));
+    public bool Put(FacultyDto dtoData) => repository.Put(mapper.Map<Faculty>(dtoData));
 }

@@ -4,12 +4,16 @@ using EducationDepartment.API.Dto;
 
 namespace EducationDepartment.API.Controllers;
 
+/// <summary>
+/// Class for (department specialty)'s controller
+/// </summary>
+/// <param name="service">(department specialty)'s service</param>
 [Route("api/[controller]")]
 [ApiController]
 public class DepartmentSpecialtyController(DepartmentSpecialtyService service) : ControllerBase
 {
     /// <summary>
-    /// Return list of (department specialty)
+    /// Get list of (department specialty)
     /// </summary>
     /// <returns> List of (department specialty)</returns>
     [HttpGet]
@@ -19,14 +23,14 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     }
 
     /// <summary>
-    /// Return (department specialty)'s information by id
+    /// Find (department specialty)'s information by specialty's id
     /// </summary>
-    /// <param name="id">(Department specialty)'s id</param>
-    /// <returns>Success or not</returns>
-    [HttpGet("{id}")]
-    public IActionResult Get(string id)
+    /// <param name="specialtyId">Specialty's id</param>
+    /// <returns>(department specialty)'s information</returns>
+    [HttpGet("{specialtyId}")]
+    public IActionResult Get(string specialtyId)
     {
-        var departmentSpecialty = service.GetById(id);
+        var departmentSpecialty = service.GetById(specialtyId);
 
         if (departmentSpecialty == null)
             return NotFound();
@@ -37,7 +41,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// <summary>
     /// Post (Department specialty) to database
     /// </summary>
-    /// <param name="departmentSpecialty">(Department specialty)'s information</param>
+    /// <param name="departmentSpecialty">(Department specialty)'s information in format DTO</param>
     /// <returns>Success or not</returns>
     [HttpPost]
     public IActionResult Post([FromBody] DepartmentSpecialtyDto departmentSpecialty)
@@ -48,30 +52,28 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     }
 
     /// <summary>
-    /// Correct (department specialty)'s information by id
+    /// Correct (department specialty)'s information by specialty's id
     /// </summary>
-    /// <param name="id">(Department specialty)'s id</param>
     /// <param name="departmentSpecialty">(Department specialty)'s information</param>
     /// <returns>Success or not</returns>
-    [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] DepartmentSpecialtyDto departmentSpecialty)
+    [HttpPut]
+    public IActionResult Put([FromBody] DepartmentSpecialtyDto departmentSpecialty)
     {
-        if (!service.Put(id, departmentSpecialty))
+        if (!service.Put(departmentSpecialty))
             return NotFound();
 
         return Ok();
-
     }
 
     /// <summary>
-    /// Delete (department specialty) by id
+    /// Delete (department specialty) by specialty's id
     /// </summary>
-    /// <param name="id">(Department specialty)'s id</param>
+    /// <param name="specialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
-    [HttpDelete("{id}")]
-    public IActionResult Delete(string id)
+    [HttpDelete("{specialtyId}")]
+    public IActionResult Delete(string specialtyId)
     {
-        if (!service.Delete(id))
+        if (!service.Delete(specialtyId))
             return NotFound();
 
         return Ok();

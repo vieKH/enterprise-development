@@ -24,9 +24,9 @@ public class DepartmentRepository(Database database) : IRepository<Department>
         database.DepartmentsList.Add(data);
     }
 
-    public bool Put(string id, Department data)
+    public bool Put(Department data)
     {
-        var oldValue = GetById(id);
+        var oldValue = GetById(data.DepartmentId);
 
         if (oldValue == null)
             return false;

@@ -32,7 +32,7 @@ public class QueryRepository(Database database)
                   };
 
         return (from table in tmp
-                orderby table.TotalDepartments, table.NameUniversity
+                orderby table.TotalDepartments descending, table.NameUniversity ascending
                 select new Tuple<string, string, int>
                 (
                     table.NameUniversity,
@@ -52,7 +52,7 @@ public class QueryRepository(Database database)
                       TotalGroups = table.Sum(p => p.NumberOfGroups)
                   };
         return (from table in tmp
-                orderby table.TotalGroups
+                orderby table.TotalGroups descending
                 select new Tuple<string, int>
                 (
                     table.NameSpecialty,
@@ -98,7 +98,7 @@ public class QueryRepository(Database database)
                 join depSpecialty in database.DepartmentSpecialtyList on department.DepartmentId equals depSpecialty.DepartmentId
                 join specialty in database.SpecialtyList on depSpecialty.SpecialtyId equals specialty.SpecialtyId
                 where university.NameUniversity == nameUniversity
-                orderby faculty.NameFaculty
+                orderby faculty.NameFaculty descending
                 select new Tuple<string, string, string, string>
                 (
                     university.NameUniversity,
@@ -153,7 +153,7 @@ public class QueryRepository(Database database)
                 where temp1.BuildingOwnership == temp2.BuildingOwnership
                 join temp3 in tmp3 on temp2.PropertyType equals temp3.PropertyType
                 where temp2.BuildingOwnership == temp3.BuildingOwnership
-                orderby temp1.TotalSpecialties
+                orderby temp1.TotalSpecialties descending
                 select new Tuple<string, string, int, int, int>
                 (
                     temp1.PropertyType,

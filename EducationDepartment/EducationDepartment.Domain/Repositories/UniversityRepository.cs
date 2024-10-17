@@ -24,9 +24,9 @@ public class UniversityRepository(Database database) : IRepository<University>
         database.UniversityList.Add(data);
     }
 
-    public bool Put(string id, University data)
+    public bool Put(University data)
     {
-        var oldValue = GetById(id);
+        var oldValue = GetById(data.RegistrationNumber);
 
         if (oldValue == null)
             return false;

@@ -18,5 +18,5 @@ public class DepartmentService(DepartmentRepository repository, IMapper mapper) 
         repository.Post(mapper.Map<Department>(dtoData));
     }
     
-    public bool Put(string id, DepartmentDto dtoData) => repository.Put(id, mapper.Map<Department>(dtoData));
+    public bool Put(DepartmentDto dtoData) => repository.Put(mapper.Map<Department>(dtoData));
 }

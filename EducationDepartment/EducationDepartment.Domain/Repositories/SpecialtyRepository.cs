@@ -24,9 +24,9 @@ public class SpecialtyRepository(Database database) : IRepository<Specialty>
         database.SpecialtyList.Add(data);
     }
 
-    public bool Put(string id, Specialty data)
+    public bool Put(Specialty data)
     {
-        var oldValue = GetById(id);
+        var oldValue = GetById(data.SpecialtyId);
 
         if (oldValue == null)
             return false;

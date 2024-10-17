@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EducationDepartment.Domain.Entity;
 using EducationDepartment.API.Dto;
-using EducationDepartment.Domain.Repositories;
 using EducationDepartment.API.Services;
 
 namespace EducationDepartment.API.Controllers;
 
+/// <summary>
+/// Class for university's controller
+/// </summary>
+/// <param name="service"></param>
 [Route("api/[controller]")]
 [ApiController]
 public class UniversityController(UniversityService service) : ControllerBase
@@ -21,14 +23,14 @@ public class UniversityController(UniversityService service) : ControllerBase
     }
 
     /// <summary>
-    /// Return university's information by id
+    /// Return university's information by registration number
     /// </summary>
-    /// <param name="id">University's registration number</param>
-    /// <returns>Success or not</returns>
-    [HttpGet("{id}")]
-    public IActionResult Get(string id)
+    /// <param name="registrationNumber">University's registration number</param>
+    /// <returns>University's information</returns>
+    [HttpGet("{registrationNumber}")]
+    public IActionResult Get(string registrationNumber)
     {
-        var university = service.GetById(id);
+        var university = service.GetById(registrationNumber);
 
         if (university == null)
             return NotFound();
@@ -52,28 +54,26 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// <summary>
     /// Correct university's information by id
     /// </summary>
-    /// <param name="id">University's registration number</param>
     /// <param name="university">University's information</param>
     /// <returns>Success or not</returns>
-    [HttpPut("{id}")]
-    public IActionResult Put(string id, [FromBody] UniversityDto value)
+    [HttpPut]
+    public IActionResult Put([FromBody] UniversityDto university)
     {
-        if (!service.Put(id, value))
+        if (!service.Put(university))
             return NotFound();
 
         return Ok();
-
     }
 
     /// <summary>
-    /// Delete university's information by id
+    /// Delete university's information by registration number
     /// </summary>
-    /// <param name="id">Department's id</param>
+    /// <param name="registrationNumber">Registration number</param>
     /// <returns>Success or not</returns>
-    [HttpDelete("{id}")]
-    public IActionResult Delete(string id)
+    [HttpDelete("{registrationNumber}")]
+    public IActionResult Delete(string registrationNumber)
     {
-        if (!service.Delete(id))
+        if (!service.Delete(registrationNumber))
             return NotFound();
 
         return Ok();

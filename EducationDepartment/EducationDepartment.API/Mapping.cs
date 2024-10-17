@@ -13,13 +13,5 @@ public class Mapping: Profile
         CreateMap<Faculty, FacultyDto>().ReverseMap();
         CreateMap<Specialty, SpecialtyDto>().ReverseMap();
         CreateMap<University, UniversityDto>().ReverseMap();
-
-        CreateMap<DepartmentDto, Department>().ReverseMap();
-        CreateMap<DepartmentSpecialtyDto, DepartmentSpecialty>().ReverseMap();
-        CreateMap<FacultyDto, Faculty>().ReverseMap();
-        CreateMap<SpecialtyDto, Specialty>().ReverseMap();
-        CreateMap<UniversityDto, University>().ReverseMap();
-
-
     }
 }

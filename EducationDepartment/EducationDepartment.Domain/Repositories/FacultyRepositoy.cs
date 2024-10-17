@@ -24,9 +24,9 @@ public class FacultyRepository(Database database) : IRepository<Faculty>
         database.FacultyList.Add(data);
     }
 
-    public bool Put(string id, Faculty data)
+    public bool Put(Faculty data)
     {
-        var oldValue = GetById(id);
+        var oldValue = GetById(data.FacultyId);
 
         if (oldValue == null)
             return false;

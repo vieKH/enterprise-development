@@ -18,5 +18,5 @@ public class SpecialtyService(SpecialtyRepository repository, IMapper mapper) : 
         repository.Post(mapper.Map<Specialty>(dtoData));
     }
 
-    public bool Put(string id, SpecialtyDto dtoData) => repository.Put(id, mapper.Map<Specialty>(dtoData)); 
+    public bool Put(SpecialtyDto dtoData) => repository.Put(mapper.Map<Specialty>(dtoData)); 
 }

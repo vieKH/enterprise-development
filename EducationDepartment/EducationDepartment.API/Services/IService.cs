@@ -8,7 +8,7 @@ public interface IService<D>
 
     public void Post(D dtoData);
 
-    public bool Put(string id, D dtoData);
+    public bool Put(D dtoData);
 
     public bool Delete(string id);
 }
