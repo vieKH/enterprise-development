@@ -1,6 +1,6 @@
 ﻿namespace EducationDepartment.Domain.Entity;
 
-public class Department()
+public class Department
 {
     public required string FacultyId { get; set; }
 
