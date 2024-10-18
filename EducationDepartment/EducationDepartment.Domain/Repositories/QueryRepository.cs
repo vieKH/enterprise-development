@@ -1,7 +1,16 @@
 ﻿namespace EducationDepartment.Domain.Repositories;
 
+/// <summary>
+/// Class for query's repository
+/// </summary>
+/// <param name="database"></param>
 public class QueryRepository(Database database)
 {
+    /// <summary>
+    /// Method get university's information by registration number
+    /// </summary>
+    /// <param name="registrationNumber">Registration number</param>
+    /// <returns>University's information</returns>
     public List<Tuple<string, string, string, string, string, string, string>> InfoUniversityByRegistration(string registrationNumber)
     {
         return (from university in database.UniversityList
@@ -18,6 +27,10 @@ public class QueryRepository(Database database)
                 )).ToList();
     }
 
+    /// <summary>
+    /// Method count number of departments in every university
+    /// </summary>
+    /// <returns>List number of departments in every university</returns>
     public List<Tuple<string, string, int>> TotalDepartmentsInUniversity()
     {
         var tmp = from uni in database.UniversityList
@@ -42,6 +55,10 @@ public class QueryRepository(Database database)
                 .ToList();
     }
 
+    /// <summary>
+    /// Method show top five specialties with highes nummber of groups
+    /// </summary>
+    /// <returns>List of top five specialties with highes nummber of groups</returns>
     public List<Tuple<string, int>> TopFiveSpecialties()
     {
         var tmp = from specialty in database.SpecialtyList
@@ -62,6 +79,11 @@ public class QueryRepository(Database database)
                 .ToList();
     }
 
+    /// <summary>
+    /// Method count total groups by property type
+    /// </summary>
+    /// <param name="propertyType">Property tpe</param>
+    /// <returns>List of university, total groups by property type </returns>
     public List<Tuple<string, string, string, int>> TotalGroupsByProperty(string propertyType)
     {
         var tmp = from specialty in database.SpecialtyList
@@ -89,7 +111,12 @@ public class QueryRepository(Database database)
                  ))
                  .ToList();
     }
-
+    
+    /// <summary>
+    /// Method show information of faculties and specialties in university by university's name
+    /// </summary>
+    /// <param name="nameUniversity">University's name</param>
+    /// <returns><List information of faculties and specialties in university by university's name </returns>
     public List<Tuple<string, string, string, string>> InfoFacultiesSpecialties(string nameUniversity)
     {
         return (from faculty in database.FacultyList
@@ -109,6 +136,10 @@ public class QueryRepository(Database database)
             ).ToList();
     }
 
+    /// <summary>
+    /// Method count number of faculties, departments and specialties by property type and building ownership
+    /// </summary>
+    /// <returns>List of data mentioned</returns>
     public List<Tuple<string, string, int, int, int>> TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()
     {
         var tmp1 = (from specialty in database.SpecialtyList

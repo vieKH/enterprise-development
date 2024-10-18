@@ -2,14 +2,39 @@
 
 namespace EducationDepartment.Domain.Repositories;
 
+/// <summary>
+/// Class for saving database
+/// </summary>
 public class Database
 {
+    /// <summary>
+    /// List of (department specialty)
+    /// </summary>
     public List<DepartmentSpecialty> DepartmentSpecialtyList { get; set; }
+
+    /// <summary>
+    /// List of faculties
+    /// </summary>
     public List<Faculty> FacultyList { get; set; }
+
+    /// <summary>
+    /// List of specialties
+    /// </summary>
     public List<Specialty> SpecialtyList { get; set; }
+
+    /// <summary>
+    /// List of departments
+    /// </summary>
     public List<Department> DepartmentsList { get; set; }
+
+    /// <summary>
+    /// List of university
+    /// </summary>
     public List<University> UniversityList { get; set; }
 
+    /// <summary>
+    /// Contructor for class
+    /// </summary>
     public Database()
     {
         UniversityList =

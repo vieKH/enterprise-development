@@ -3,6 +3,10 @@ using EducationDepartment.Domain.Repositories;
 
 namespace EducationDepartment.API.Services;
 
+/// <summary>
+/// Class for query's service
+/// </summary>
+/// <param name="queryRepository">Query's repository</param>
 public class QueryService(QueryRepository queryRepository)
 {
     public IEnumerable<UniversityDto> InfoUniversityByRegistration(string registrationNumber)

@@ -2,14 +2,39 @@
 
 namespace EducationDepartment.Test;
 
+/// <summary>
+/// Class fixture
+/// </summary>
 public class EducationDepartmentFixture
 {
+    /// <summary>
+    /// List of (department specialty)
+    /// </summary>
     public List<DepartmentSpecialty> DepartmentSpecialtyList { get; set; }
+
+    /// <summary>
+    /// List of faculties
+    /// </summary>
     public List<Faculty> FacultyList { get; set; }
+
+    /// <summary>
+    /// list of specialties
+    /// </summary>
     public List<Specialty> SpecialtyList { get; set; }
+
+    /// <summary>
+    /// List of departments
+    /// </summary>
     public List<Department> DepartmentsList { get; set; }
+
+    /// <summary>
+    /// List of universities
+    /// </summary>
     public List<University> UniversityList { get; set; }
 
+    /// <summary>
+    /// Contructor for class
+    /// </summary>
     public EducationDepartmentFixture()
     {
         UniversityList =
