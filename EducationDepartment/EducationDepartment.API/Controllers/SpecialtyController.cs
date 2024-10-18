@@ -71,7 +71,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <param name="SpecialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{SpecialtyId}")]
-    public IActionResult<string> Delete(string SpecialtyId)
+    public ActionResult<string> Delete(string SpecialtyId)
     {
         if (!service.Delete(SpecialtyId))
             return NotFound();
