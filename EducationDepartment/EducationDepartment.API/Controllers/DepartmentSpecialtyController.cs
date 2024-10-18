@@ -17,7 +17,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// </summary>
     /// <returns> List of (department specialty)</returns>
     [HttpGet]
-    public ActionResult<DepartmentSpecialtyDto> Get()
+    public ActionResult<IEnumerable<DepartmentSpecialtyDto>> Get()
     {
         return Ok(service.GetAll());
     }
@@ -48,7 +48,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     {
         service.Post(departmentSpecialty);
 
-        return Ok();
+        return Ok(departmentSpecialty);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
         if (!service.Put(departmentSpecialty))
             return NotFound();
 
-        return Ok();
+        return Ok(departmentSpecialty);
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// <param name="specialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{specialtyId}")]
-    public ActionResult<DepartmentSpecialtyDto> Delete(string specialtyId)
+    public ActionResult<string> Delete(string specialtyId)
     {
         if (!service.Delete(specialtyId))
             return NotFound();
 
-        return Ok();
+        return Ok("Specialty was deleted");
     }
 }

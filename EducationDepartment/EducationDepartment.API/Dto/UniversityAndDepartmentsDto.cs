@@ -16,7 +16,7 @@ public class UniversityAndDepartmentsDto
     public required string RegistrationNumber { get; set; }
 
     /// <summary>
-    /// Total departents
+    /// Total departments
     /// </summary>
     public required int TotalDepartments { get; set; }
 }

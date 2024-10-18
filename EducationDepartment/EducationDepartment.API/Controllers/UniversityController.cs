@@ -17,7 +17,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// </summary>
     /// <returns> List of universities</returns>
     [HttpGet]
-    public ActionResult<UniversityDto> Get()
+    public ActionResult<IEnumerable<UniversityDto>> Get()
     {
         return Ok(service.GetAll());
     }
@@ -48,7 +48,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     {
         service.Post(university);
 
-        return Ok();
+        return Ok(university);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class UniversityController(UniversityService service) : ControllerBase
         if (!service.Put(university))
             return NotFound();
 
-        return Ok();
+        return Ok(university);
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// <param name="registrationNumber">Registration number</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{registrationNumber}")]
-    public ActionResult<UniversityDto> Delete(string registrationNumber)
+    public ActionResult<string> Delete(string registrationNumber)
     {
         if (!service.Delete(registrationNumber))
             return NotFound();
 
-        return Ok();
+        return Ok("University was deleted");
     }
 }

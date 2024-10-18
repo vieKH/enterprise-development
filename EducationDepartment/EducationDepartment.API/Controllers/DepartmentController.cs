@@ -17,7 +17,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     /// </summary>
     /// <returns> List of departments</returns>
     [HttpGet]
-    public ActionResult<DepartmentDto> Get()
+    public ActionResult<IEnumerable<DepartmentDto>> Get()
     {
         return Ok(service.GetAll());
     }
@@ -47,8 +47,8 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     public ActionResult<DepartmentDto> Post([FromBody] DepartmentDto department)
     {
         service.Post(department);
-
-        return Ok();
+        
+        return Ok(department);
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
         if (!service.Put(department))
             return NotFound();
 
-        return Ok();
+        return Ok(department);
     }
 
     /// <summary>
@@ -71,11 +71,11 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     /// <param name="departmentId">Department's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{departmentId}")]
-    public ActionResult<DepartmentDto> Delete(string departmentId)
+    public ActionResult<string> Delete(string departmentId)
     {
         if (!service.Delete(departmentId))
             return NotFound();
 
-        return Ok();
+        return Ok("Department was deleted");
     }
 }

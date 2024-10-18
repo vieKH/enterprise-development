@@ -13,7 +13,7 @@ namespace EducationDepartment.API.Controllers;
 public class QueryController(QueryService service) : ControllerBase
 {
     /// <summary>
-    /// Return list op university's information with registration number
+    /// Return list of university's information with registration number
     /// </summary>
     /// <param name="registrationNumber">Registration number</param>
     /// <returns>University's information with registration number</returns>
