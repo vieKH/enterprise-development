@@ -17,7 +17,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// </summary>
     /// <returns> List of universities</returns>
     [HttpGet]
-    public IActionResult Get()
+    public ActionResult<UniversityDto> Get()
     {
         return Ok(service.GetAll());
     }
@@ -28,7 +28,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// <param name="registrationNumber">University's registration number</param>
     /// <returns>University's information</returns>
     [HttpGet("{registrationNumber}")]
-    public IActionResult Get(string registrationNumber)
+    public ActionResult<UniversityDto> Get(string registrationNumber)
     {
         var university = service.GetById(registrationNumber);
 
@@ -44,7 +44,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// <param name="university">University's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] UniversityDto university)
+    public ActionResult<UniversityDto> Post([FromBody] UniversityDto university)
     {
         service.Post(university);
 
@@ -57,7 +57,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// <param name="university">University's information</param>
     /// <returns>Success or not</returns>
     [HttpPut]
-    public IActionResult Put([FromBody] UniversityDto university)
+    public ActionResult<UniversityDto> Put([FromBody] UniversityDto university)
     {
         if (!service.Put(university))
             return NotFound();
@@ -71,7 +71,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// <param name="registrationNumber">Registration number</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{registrationNumber}")]
-    public IActionResult Delete(string registrationNumber)
+    public ActionResult<UniversityDto> Delete(string registrationNumber)
     {
         if (!service.Delete(registrationNumber))
             return NotFound();

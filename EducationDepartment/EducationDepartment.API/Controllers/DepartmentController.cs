@@ -13,11 +13,11 @@ namespace EducationDepartment.API.Controllers;
 public class DepartmentController(DepartmentService service) : ControllerBase
 {
     /// <summary>
-    /// Get list of departments
+    /// Return list of departments
     /// </summary>
     /// <returns> List of departments</returns>
     [HttpGet]
-    public IActionResult Get()
+    public ActionResult<DepartmentDto> Get()
     {
         return Ok(service.GetAll());
     }
@@ -28,7 +28,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     /// <param name="departmentId">Department's id</param>
     /// <returns>Department's information</returns>
     [HttpGet("{departmentId}")]
-    public IActionResult Get(string departmentId)
+    public ActionResult<DepartmentDto> Get(string departmentId)
     {
         var department = service.GetById(departmentId);
 
@@ -44,7 +44,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     /// <param name="department">Department's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] DepartmentDto department)
+    public ActionResult<DepartmentDto> Post([FromBody] DepartmentDto department)
     {
         service.Post(department);
 
@@ -57,7 +57,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     /// <param name="department">Department's information</param>
     /// <returns>Success or not</returns>
     [HttpPut]
-    public IActionResult Put([FromBody] DepartmentDto department)
+    public ActionResult<DepartmentDto> Put([FromBody] DepartmentDto department)
     {
         if (!service.Put(department))
             return NotFound();
@@ -71,7 +71,7 @@ public class DepartmentController(DepartmentService service) : ControllerBase
     /// <param name="departmentId">Department's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{departmentId}")]
-    public IActionResult Delete(string departmentId)
+    public ActionResult<DepartmentDto> Delete(string departmentId)
     {
         if (!service.Delete(departmentId))
             return NotFound();

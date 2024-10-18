@@ -1,4 +1,5 @@
-﻿using EducationDepartment.API.Services;
+﻿using EducationDepartment.API.Dto;
+using EducationDepartment.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EducationDepartment.API.Controllers;
@@ -12,12 +13,12 @@ namespace EducationDepartment.API.Controllers;
 public class QueryController(QueryService service) : ControllerBase
 {
     /// <summary>
-    /// Show university's information with registration number
+    /// Return list op university's information with registration number
     /// </summary>
     /// <param name="registrationNumber">Registration number</param>
     /// <returns>University's information with registration number</returns>
-    [HttpGet("UniversityInformationWithRegistrationNumber:{number}")]
-    public IActionResult InfoUniversityByRegistration(string registrationNumber)
+    [HttpGet("Universities")]
+    public ActionResult<UniversityDto> InfoUniversityByRegistration(string registrationNumber)
     {
         return Ok(service.InfoUniversityByRegistration(registrationNumber));
     }
@@ -26,8 +27,8 @@ public class QueryController(QueryService service) : ControllerBase
     /// Count total departments in every university
     /// </summary>
     /// <returns>List of objects mentioned in format json</returns>
-    [HttpGet("Total departments in every university")]
-    public IActionResult TotalDepartmentsInUniversity()
+    [HttpGet("Departments")]
+    public ActionResult<UniversityAndDepartmentsDto> TotalDepartmentsInUniversity()
     {
         return Ok(service.TotalDepartmentsInUniversity());
     }
@@ -36,8 +37,8 @@ public class QueryController(QueryService service) : ControllerBase
     /// Find 5 specialties with the highest number of groups 
     /// </summary>
     /// <returns>List of objects mentioned in format json</returns>
-    [HttpGet("TopFiveSpecialties")]
-    public IActionResult TopFiveSpecialties()
+    [HttpGet("Top5Specialties")]
+    public ActionResult<SpecialtyAndGroupsDto> TopFiveSpecialties()
     {
         return Ok(service.TopFiveSpecialties());
     }
@@ -47,19 +48,19 @@ public class QueryController(QueryService service) : ControllerBase
     /// </summary>
     /// <param name="propertyType">Property type</param>
     /// <returns>List of objects mentioned in format json</returns>
-    [HttpGet("TotalGroupsByProperty:{propertyType}")]
-    public IActionResult TotalGroupsByProperty(string propertyType)
+    [HttpGet("Properties")]
+    public ActionResult<PropertyAndGroupsDto> TotalGroupsByProperty(string propertyType)
     {
         return Ok(service.TotalGroupsByProperty(propertyType));
     }
 
     /// <summary>
-    /// Show faculties and specialties available in university
+    /// Return list of faculties and specialties available in university
     /// </summary>
     /// <param name="nameUniversity">University's name</param>
     /// <returns>List of objects mentioned in format json</returns>
-    [HttpGet("Information about faculties specialties in {nameUniversity}")]
-    public IActionResult InfoFacultiesSpecialties(string nameUniversity)
+    [HttpGet("FacultiesSpecialties")]
+    public ActionResult<FacultyAndSpecialtyDto> InfoFacultiesSpecialties(string nameUniversity)
     {
         return Ok(service.InfoFacultiesSpecialties(nameUniversity));
     }
@@ -68,8 +69,8 @@ public class QueryController(QueryService service) : ControllerBase
     /// Count total of departments, faculties and specialties by attributes property type and building owner
     /// </summary>
     /// <returns>List of objects mentioned in format json</returns>
-    [HttpGet("Total departments faculties specialties by property and building owner")]
-    public IActionResult TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()
+    [HttpGet("PropertiesBuildings")]
+    public ActionResult<PropertyAndBuildingDto> TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()
     {
         return Ok(service.TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding());
     }

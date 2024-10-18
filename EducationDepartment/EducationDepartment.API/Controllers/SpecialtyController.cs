@@ -13,11 +13,11 @@ namespace EducationDepartment.API.Controllers;
 public class SpecialtyController(SpecialtyService service) : ControllerBase
 {
     /// <summary>
-    /// Get list of specialties
+    /// Return list of specialties
     /// </summary>
     /// <returns> List of specialties</returns>
     [HttpGet]
-    public IActionResult Get()
+    public ActionResult<SpecialtyDto> Get()
     {
         return Ok(service.GetAll());
     }
@@ -28,7 +28,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <param name="SpecialtyId">Specialty's id</param>
     /// <returns>Specialty's information</returns>
     [HttpGet("{SpecialtyId}")]
-    public IActionResult Get(string SpecialtyId)
+    public ActionResult<SpecialtyDto> Get(string SpecialtyId)
     {
         var specialty = service.GetById(SpecialtyId);
 
@@ -44,7 +44,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <param name="specialty">Specialty's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] SpecialtyDto specialty)
+    public ActionResult<SpecialtyDto> Post([FromBody] SpecialtyDto specialty)
     {
         service.Post(specialty);
 
@@ -57,7 +57,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <param name="specialty"></param>
     /// <returns>Success or not</returns>
     [HttpPut]
-    public IActionResult Put([FromBody] SpecialtyDto specialty)
+    public ActionResult<SpecialtyDto> Put([FromBody] SpecialtyDto specialty)
     {
         if (!service.Put(specialty))
             return NotFound();
@@ -71,7 +71,7 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <param name="SpecialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{SpecialtyId}")]
-    public IActionResult Delete(string SpecialtyId)
+    public ActionResult<SpecialtyDto> Delete(string SpecialtyId)
     {
         if (!service.Delete(SpecialtyId))
             return NotFound();

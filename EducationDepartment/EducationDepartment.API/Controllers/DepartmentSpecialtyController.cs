@@ -13,11 +13,11 @@ namespace EducationDepartment.API.Controllers;
 public class DepartmentSpecialtyController(DepartmentSpecialtyService service) : ControllerBase
 {
     /// <summary>
-    /// Get list of (department specialty)
+    /// Return list of (department specialty)
     /// </summary>
     /// <returns> List of (department specialty)</returns>
     [HttpGet]
-    public IActionResult Get()
+    public ActionResult<DepartmentSpecialtyDto> Get()
     {
         return Ok(service.GetAll());
     }
@@ -28,7 +28,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// <param name="specialtyId">Specialty's id</param>
     /// <returns>(department specialty)'s information</returns>
     [HttpGet("{specialtyId}")]
-    public IActionResult Get(string specialtyId)
+    public ActionResult<DepartmentSpecialtyDto> Get(string specialtyId)
     {
         var departmentSpecialty = service.GetById(specialtyId);
 
@@ -44,7 +44,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// <param name="departmentSpecialty">(Department specialty)'s information in format DTO</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] DepartmentSpecialtyDto departmentSpecialty)
+    public ActionResult<DepartmentSpecialtyDto> Post([FromBody] DepartmentSpecialtyDto departmentSpecialty)
     {
         service.Post(departmentSpecialty);
 
@@ -57,7 +57,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// <param name="departmentSpecialty">(Department specialty)'s information</param>
     /// <returns>Success or not</returns>
     [HttpPut]
-    public IActionResult Put([FromBody] DepartmentSpecialtyDto departmentSpecialty)
+    public ActionResult<DepartmentSpecialtyDto> Put([FromBody] DepartmentSpecialtyDto departmentSpecialty)
     {
         if (!service.Put(departmentSpecialty))
             return NotFound();
@@ -71,7 +71,7 @@ public class DepartmentSpecialtyController(DepartmentSpecialtyService service) :
     /// <param name="specialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{specialtyId}")]
-    public IActionResult Delete(string specialtyId)
+    public ActionResult<DepartmentSpecialtyDto> Delete(string specialtyId)
     {
         if (!service.Delete(specialtyId))
             return NotFound();

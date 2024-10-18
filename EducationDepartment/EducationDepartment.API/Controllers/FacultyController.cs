@@ -13,11 +13,11 @@ namespace EducationDepartment.API.Controllers;
 public class FacultyController(FacultyService service) : ControllerBase
 {
     /// <summary>
-    /// Get list of faculties
+    /// Return list of faculties
     /// </summary>
     /// <returns>List of faculties</returns>
     [HttpGet]
-    public IActionResult Get()
+    public ActionResult<FacultyDto> Get()
     {
         return Ok(service.GetAll());
     }
@@ -28,7 +28,7 @@ public class FacultyController(FacultyService service) : ControllerBase
     /// <param name="facultyId">Faculty's id</param>
     /// <returns>Faculty's information</returns>
     [HttpGet("{facultyId}")]
-    public IActionResult Get(string facultyId)
+    public ActionResult<FacultyDto> Get(string facultyId)
     {
         var faculty = service.GetById(facultyId);
 
@@ -44,7 +44,7 @@ public class FacultyController(FacultyService service) : ControllerBase
     /// <param name="faculty">Faculty's information</param>
     /// <returns>Success or not</returns>
     [HttpPost]
-    public IActionResult Post([FromBody] FacultyDto faculty)
+    public ActionResult<FacultyDto> Post([FromBody] FacultyDto faculty)
     {
         service.Post(faculty);
 
@@ -57,7 +57,7 @@ public class FacultyController(FacultyService service) : ControllerBase
     /// <param name="faculty">Faculty's information</param>
     /// <returns>Success or not</returns>
     [HttpPut]
-    public IActionResult Put([FromBody] FacultyDto faculty)
+    public ActionResult<FacultyDto> Put([FromBody] FacultyDto faculty)
     {
         if (!service.Put(faculty))
             return NotFound();
@@ -71,7 +71,7 @@ public class FacultyController(FacultyService service) : ControllerBase
     /// <param name="facultyId">Faculty's id</param>
     /// <returns>Success or not</returns>
     [HttpDelete("{facultyId}")]
-    public IActionResult Delete(string facultyId)
+    public ActionResult<FacultyDto> Delete(string facultyId)
     {
         if (!service.Delete(facultyId))
             return NotFound();
