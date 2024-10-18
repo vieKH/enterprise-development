@@ -1,5 +1,8 @@
 ﻿namespace EducationDepartment.API.Dto;
 
+/// <summary>
+/// Class for data transfer about university's information
+/// </summary>
 public class UniversityDto
 {
     public required string RegistrationNumber { get; set; } 
