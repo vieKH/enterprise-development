@@ -1,10 +1,12 @@
-﻿namespace EducationDepartment.Domain.Repositories;
+﻿using EducationDepartment.Domain.Entity;
+
+namespace EducationDepartment.Domain.Repositories;
 
 /// <summary>
 /// Class for query's repository
 /// </summary>
 /// <param name="database"></param>
-public class QueryRepository(Database database)
+public class QueryRepository(EducationDepartmentContext educationDepartmentContext)
 {
     /// <summary>
     /// Method get university's information by registration number
@@ -13,18 +15,19 @@ public class QueryRepository(Database database)
     /// <returns>University's information</returns>
     public List<Tuple<string, string, string, string, string, string, string>> InfoUniversityByRegistration(string registrationNumber)
     {
-        return (from university in database.UniversityList
-                where university.RegistrationNumber == registrationNumber
-                select new Tuple<string, string, string, string, string, string, string>
-                (
-                    university.NameUniversity,
-                    university.Address,
-                    university.PropertyType,
-                    university.BuildingOwnership,
-                    university.RectorFullName,
-                    university.Degree,
-                    university.Tittle
-                )).ToList();
+        return educationDepartmentContext.University
+            .Where(uni => uni.RegistrationNumber == registrationNumber)
+            .Select(res => Tuple.Create
+            (
+                res.NameUniversity,
+                res.Address,
+                res.PropertyType,
+                res.BuildingOwnership,
+                res.RectorFullName,
+                res.Degree,
+                res.Title
+            ))
+            .ToList();
     }
 
     /// <summary>
@@ -33,26 +36,30 @@ public class QueryRepository(Database database)
     /// <returns>List number of departments in every university</returns>
     public List<Tuple<string, string, int>> TotalDepartmentsInUniversity()
     {
-        var tmp = from uni in database.UniversityList
-                  join faculty in database.FacultyList on uni.RegistrationNumber equals faculty.RegistrationNumber
-                  join department in database.DepartmentsList on faculty.FacultyId equals department.FacultyId
-                  group uni by new { uni.RegistrationNumber, uni.NameUniversity } into table
-                  select new
+        return educationDepartmentContext.University
+            .Join(educationDepartmentContext.Faculty,
+                  university => university.RegistrationNumber,
+                  faculty => faculty.RegistrationNumber,
+                  (university, faculty) => new
                   {
-                      NameUniversity = table.Key.NameUniversity,
-                      RegistrationNumber = table.Key.RegistrationNumber,
-                      TotalDepartments = table.Count()
-                  };
-
-        return (from table in tmp
-                orderby table.TotalDepartments descending, table.NameUniversity ascending
-                select new Tuple<string, string, int>
-                (
-                    table.NameUniversity,
-                    table.RegistrationNumber,
-                    table.TotalDepartments
-                ))
-                .ToList();
+                      University = university,
+                      facultyId = faculty.FacultyId
+                  })
+            .Join(educationDepartmentContext.Department,
+                  uni_faculty => uni_faculty.facultyId,
+                  department => department.FacultyId,
+                  (uni_faculty, department) => new
+                  {
+                      uni_faculty.University.RegistrationNumber,
+                      uni_faculty.University.NameUniversity,
+                      department.DepartmentId
+                  })
+            .GroupBy(x => new { x.RegistrationNumber, x.NameUniversity })
+            .Select(res => Tuple.Create(
+                res.Key.RegistrationNumber,
+                res.Key.NameUniversity,
+                res.Count())
+            ).ToList();
     }
 
     /// <summary>
@@ -61,22 +68,12 @@ public class QueryRepository(Database database)
     /// <returns>List of top five specialties with highes nummber of groups</returns>
     public List<Tuple<string, int>> TopFiveSpecialties()
     {
-        var tmp = from specialty in database.SpecialtyList
-                  group specialty by specialty.NameSpecialty into table
-                  select new
-                  {
-                      NameSpecialty = table.Key,
-                      TotalGroups = table.Sum(p => p.NumberOfGroups)
-                  };
-        return (from table in tmp
-                orderby table.TotalGroups descending
-                select new Tuple<string, int>
-                (
-                    table.NameSpecialty,
-                    table.TotalGroups
-                ))
-                .Take(5)
-                .ToList();
+        return educationDepartmentContext.Specialty
+            .GroupBy(specialty => specialty.NameSpecialty)
+            .OrderByDescending(specialty => specialty.Sum(spe => spe.NumberOfGroups))
+            .Select(res => Tuple.Create(res.Key, res.Sum(spe => spe.NumberOfGroups)))
+            .Take(5)
+            .ToList();
     }
 
     /// <summary>
@@ -86,30 +83,28 @@ public class QueryRepository(Database database)
     /// <returns>List of university, total groups by property type </returns>
     public List<Tuple<string, string, string, int>> TotalGroupsByProperty(string propertyType)
     {
-        var tmp = from specialty in database.SpecialtyList
-                  join deSpe in database.DepartmentSpecialtyList on specialty.SpecialtyId equals deSpe.SpecialtyId
-                  join department in database.DepartmentsList on deSpe.DepartmentId equals department.DepartmentId
-                  join faculty in database.FacultyList on department.FacultyId equals faculty.FacultyId
-                  join uni in database.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
-                  where uni.PropertyType == propertyType
-                  group specialty by new { uni.RegistrationNumber, uni.NameUniversity, uni.PropertyType } into table
-                  select new
-                  {
-                      table.Key.RegistrationNumber,
-                      table.Key.NameUniversity,
-                      table.Key.PropertyType,
-                      TotalGroups = table.Sum(p => p.NumberOfGroups)
-                  };
-        return (from table in tmp
-                orderby table.TotalGroups descending
-                select new Tuple<string, string, string, int>
-                (
-                    table.RegistrationNumber,
-                    table.NameUniversity,
-                    table.PropertyType,
-                    table.TotalGroups
-                 ))
-                 .ToList();
+        return educationDepartmentContext.Specialty
+            .Join(educationDepartmentContext.DepartmentSpecialty,
+                specialty => specialty.SpecialtyId,
+                deSpe => deSpe.SpecialtyId,
+                (specialty, deSpe) => new { NumberOfGroups = specialty.NumberOfGroups, deSpe })
+            .Join(educationDepartmentContext.Department,
+                a => a.deSpe.DepartmentId,
+                department => department.DepartmentId,
+                (a, department) => new { a.NumberOfGroups, department.FacultyId })
+            .Join(educationDepartmentContext.Faculty,
+                b => b.FacultyId,
+                faculty => faculty.FacultyId,
+                (b, faculty) => new { b.NumberOfGroups, faculty.RegistrationNumber })
+            .Join(educationDepartmentContext.University,
+                c => c.RegistrationNumber,
+                uni => uni.RegistrationNumber,
+                (c, uni) => new { uni.RegistrationNumber, uni.NameUniversity, uni.PropertyType, c.NumberOfGroups })
+            .Where(d => d.PropertyType == propertyType)
+            .GroupBy(e => new { e.RegistrationNumber, e.NameUniversity, e.PropertyType })
+            .OrderByDescending(f => f.Sum(g => g.NumberOfGroups))
+            .Select(res => Tuple.Create(res.Key.RegistrationNumber, res.Key.NameUniversity, res.Key.PropertyType, res.Sum(h => h.NumberOfGroups)))
+            .ToList();
     }
     
     /// <summary>
@@ -119,21 +114,26 @@ public class QueryRepository(Database database)
     /// <returns><List information of faculties and specialties in university by university's name </returns>
     public List<Tuple<string, string, string, string>> InfoFacultiesSpecialties(string nameUniversity)
     {
-        return (from faculty in database.FacultyList
-                join university in database.UniversityList on faculty.RegistrationNumber equals university.RegistrationNumber
-                join department in database.DepartmentsList on faculty.FacultyId equals department.FacultyId
-                join depSpecialty in database.DepartmentSpecialtyList on department.DepartmentId equals depSpecialty.DepartmentId
-                join specialty in database.SpecialtyList on depSpecialty.SpecialtyId equals specialty.SpecialtyId
-                where university.NameUniversity == nameUniversity
-                orderby faculty.NameFaculty descending
-                select new Tuple<string, string, string, string>
-                (
-                    university.NameUniversity,
-                    faculty.NameFaculty,
-                    department.NameDepartment,
-                    specialty.NameSpecialty
-                )
-            ).ToList();
+        return educationDepartmentContext.University
+            .Join(educationDepartmentContext.Faculty,
+                university => university.RegistrationNumber,
+                faculty => faculty.RegistrationNumber,
+                (university, faculty) => new { university.NameUniversity, faculty.FacultyId, faculty.NameFaculty })
+            .Join(educationDepartmentContext.Department,
+                a => a.FacultyId,
+                department => department.FacultyId,
+                (a, department) => new { a.NameUniversity, a.NameFaculty, department.DepartmentId, department.NameDepartment })
+            .Join(educationDepartmentContext.DepartmentSpecialty,
+                b => b.DepartmentId,
+                deSpe => deSpe.DepartmentId,
+                (b, deSpe) => new { b.NameUniversity, b.NameFaculty, b.NameDepartment, deSpe.SpecialtyId })
+            .Join(educationDepartmentContext.Specialty,
+                c => c.SpecialtyId,
+                specialty => specialty.SpecialtyId,
+                (c, Specialty) => new { c.NameUniversity, c.NameFaculty, c.NameDepartment, Specialty.NameSpecialty })
+            .Where(d => d.NameUniversity == nameUniversity)
+            .Select(res => Tuple.Create(res.NameUniversity, res.NameFaculty, res.NameDepartment, res.NameSpecialty))
+            .ToList();
     }
 
     /// <summary>
@@ -142,57 +142,54 @@ public class QueryRepository(Database database)
     /// <returns>List of data mentioned</returns>
     public List<Tuple<string, string, int, int, int>> TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()
     {
-        var tmp1 = (from specialty in database.SpecialtyList
-                    join deSpe in database.DepartmentSpecialtyList on specialty.SpecialtyId equals deSpe.SpecialtyId
-                    join department in database.DepartmentsList on deSpe.DepartmentId equals department.DepartmentId
-                    join faculty in database.FacultyList on department.FacultyId equals faculty.FacultyId
-                    join uni in database.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
-                    group specialty by new { uni.PropertyType, uni.BuildingOwnership } into table1
-                    select new
-                    {
-                        table1.Key.PropertyType,
-                        table1.Key.BuildingOwnership,
-                        TotalSpecialties = table1.Count()
-                    }
-    ).ToList();
-
-        var tmp2 = (from faculty in database.FacultyList
-                    join university in database.UniversityList on faculty.RegistrationNumber equals university.RegistrationNumber
-                    group faculty by new { university.PropertyType, university.BuildingOwnership } into table2
-                    select new
-                    {
-                        table2.Key.PropertyType,
-                        table2.Key.BuildingOwnership,
-                        TotalFaculties = table2.Count()
-                    }
-            ).ToList();
-
-        var tmp3 = (from department in database.DepartmentsList
-                    join faculty in database.FacultyList on department.FacultyId equals faculty.FacultyId
-                    join uni in database.UniversityList on faculty.RegistrationNumber equals uni.RegistrationNumber
-                    group department by new { uni.PropertyType, uni.BuildingOwnership } into table3
-                    select new
-                    {
-                        table3.Key.PropertyType,
-                        table3.Key.BuildingOwnership,
-                        TotalDepartments = table3.Count()
-                    }
-            ).ToList();
-
-        return (from temp1 in tmp1
-                join temp2 in tmp2 on temp1.PropertyType equals temp2.PropertyType
-                where temp1.BuildingOwnership == temp2.BuildingOwnership
-                join temp3 in tmp3 on temp2.PropertyType equals temp3.PropertyType
-                where temp2.BuildingOwnership == temp3.BuildingOwnership
-                orderby temp1.TotalSpecialties descending
-                select new Tuple<string, string, int, int, int>
+        return educationDepartmentContext.University
+            .Join(educationDepartmentContext.Faculty,
+                  university => university.RegistrationNumber,
+                  faculty => faculty.RegistrationNumber,
+                  (university, faculty) => new 
+                  {
+                      university.PropertyType,
+                      university.BuildingOwnership,
+                      FacultyId = faculty.FacultyId
+                  })
+            .Join(educationDepartmentContext.Department,
+                  a => a.FacultyId,
+                  department => department.FacultyId,
+                  (a, department) => new 
+                  {
+                      a.PropertyType,
+                      a.BuildingOwnership,
+                      a.FacultyId,
+                      department.DepartmentId
+                  })
+            .Join(educationDepartmentContext.DepartmentSpecialty,
+                  b => b.DepartmentId,
+                  deSpe => deSpe.DepartmentId,
+                  (b, deSpe) => new
+                  {
+                      b.PropertyType,
+                      b.BuildingOwnership,
+                      b.FacultyId,
+                      b.DepartmentId,
+                      deSpe.SpecialtyId
+                  })
+            .GroupBy(x => new { x.PropertyType, x.BuildingOwnership })
+            .Select(g => new {
+                PropertyType = g.Key.PropertyType,
+                BuildingOwnership = g.Key.BuildingOwnership,
+                TotalSpecialties = g.Count(),
+                TotalFaculties = g.Select(x => x.FacultyId).Distinct().Count(), 
+                TotalDepartments = g.Select(x => x.DepartmentId).Distinct().Count() 
+            })
+            .OrderByDescending(x => x.TotalSpecialties)
+            .Select(res => Tuple.Create
                 (
-                    temp1.PropertyType,
-                    temp1.BuildingOwnership,
-                    temp1.TotalSpecialties,
-                    temp2.TotalFaculties,
-                    temp3.TotalDepartments
+                    res.PropertyType,
+                    res.BuildingOwnership,
+                    res.TotalSpecialties,
+                    res.TotalFaculties,
+                    res.TotalDepartments
                 ))
-                .ToList();
+            .ToList();
     }
 }

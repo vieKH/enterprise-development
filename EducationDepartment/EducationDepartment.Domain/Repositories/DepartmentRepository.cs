@@ -2,7 +2,7 @@
 
 namespace EducationDepartment.Domain.Repositories;
 
-public class DepartmentRepository(Database database) : IRepository<Department>
+public class DepartmentRepository(EducationDepartmentContext educationDepartmentContext) : IRepository<Department>
 {
     public bool Delete(string id)
     {
@@ -11,18 +11,20 @@ public class DepartmentRepository(Database database) : IRepository<Department>
         if (value == null)
             return false;
 
-        database.DepartmentsList.Remove(value);
+        educationDepartmentContext.Department.Remove(value);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }
 
-    public IEnumerable<Department> GetAll() => database.DepartmentsList;
+    public IEnumerable<Department> GetAll() => educationDepartmentContext.Department;
 
-    public Department? GetById(string id) => database.DepartmentsList.Find(a => a.DepartmentId == id);
+    public Department? GetById(string id) => educationDepartmentContext.Department.FirstOrDefault(a => a.DepartmentId == id);
 
     public void Post(Department data)
     {
-        database.DepartmentsList.Add(data);
+        educationDepartmentContext.Department.Add(data);
+        educationDepartmentContext.SaveChanges();
     }
 
     public bool Put(Department data)
@@ -32,9 +34,8 @@ public class DepartmentRepository(Database database) : IRepository<Department>
         if (oldValue == null)
             return false;
 
-        oldValue.NameDepartment = data.NameDepartment;
-        oldValue.DepartmentId = data.DepartmentId;
-        oldValue.FacultyId = data.FacultyId;
+        educationDepartmentContext.Update(data);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }

@@ -1,4 +1,6 @@
-﻿namespace EducationDepartment.Domain.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EducationDepartment.Domain.Entity;
 
 /// <summary>
 /// Class for saving specialty's information
@@ -8,6 +10,7 @@ public class Specialty
     /// <summary>
     /// Specialty's id
     /// </summary>
+    [Key]
     public required string SpecialtyId { get; set; } 
     
     /// <summary>

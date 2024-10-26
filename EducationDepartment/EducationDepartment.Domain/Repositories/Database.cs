@@ -48,7 +48,7 @@ public class Database
                     BuildingOwnership = "Federal",
                     RectorFullName = "Ivan Yefimovich Petrov",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -59,7 +59,7 @@ public class Database
                     BuildingOwnership = "Private",
                     RectorFullName = "Anna Ivanova Vladimirovna",
                     Degree = "Doctor",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -70,7 +70,7 @@ public class Database
                     BuildingOwnership = "Private",
                     RectorFullName = "Marina Vasilievna Smirnova",
                     Degree = "MA",
-                    Tittle = "Associate Professor"
+                    Title = "Associate Professor"
                 },
                 new University
                 {
@@ -81,7 +81,7 @@ public class Database
                     BuildingOwnership = "Municipal",
                     RectorFullName = "Olga Petrova",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -92,7 +92,7 @@ public class Database
                     BuildingOwnership = "Municipal",
                     RectorFullName = "Nikolai Vasilyevich Sergeev",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -103,7 +103,7 @@ public class Database
                     BuildingOwnership = "Municipal",
                     RectorFullName = "Tatiana Nikolaevna Fedorova",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -114,7 +114,7 @@ public class Database
                     BuildingOwnership = "Federal",
                     RectorFullName = "Sergey Sergeevich Kozlov",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 }
             ];
 

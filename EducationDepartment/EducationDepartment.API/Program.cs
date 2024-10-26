@@ -1,6 +1,8 @@
 using EducationDepartment.API;
 using EducationDepartment.API.Services;
+using EducationDepartment.Domain;
 using EducationDepartment.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,28 +14,33 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
-// Add services to the container.
+builder.Services.AddDbContext<EducationDepartmentContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString(nameof(EducationDepartment));
+    var serverVersion = new MySqlServerVersion(new Version(8, 0, 39));
+    options.UseMySql(connectionString, serverVersion);
+});
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<DepartmentRepository>();
-builder.Services.AddSingleton<UniversityRepository>();
-builder.Services.AddSingleton<FacultyRepository>();
-builder.Services.AddSingleton<DeparmentSpecialtyRepository>();
-builder.Services.AddSingleton<SpecialtyRepository>();
-builder.Services.AddSingleton<QueryRepository>();
+builder.Services.AddScoped<DepartmentRepository>();
+builder.Services.AddScoped<UniversityRepository>();
+builder.Services.AddScoped<FacultyRepository>();
+builder.Services.AddScoped<DeparmentSpecialtyRepository>();
+builder.Services.AddScoped<SpecialtyRepository>();
+builder.Services.AddScoped<QueryRepository>();
 
-builder.Services.AddSingleton<DepartmentService>();
-builder.Services.AddSingleton<UniversityService>();
-builder.Services.AddSingleton<FacultyService>();
-builder.Services.AddSingleton<DepartmentSpecialtyService>();
-builder.Services.AddSingleton<SpecialtyService>();
-builder.Services.AddSingleton<QueryService>();
+builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<UniversityService>();
+builder.Services.AddScoped<FacultyService>();
+builder.Services.AddScoped<DepartmentSpecialtyService>();
+builder.Services.AddScoped<SpecialtyService>();
+builder.Services.AddScoped<QueryService>();
 
-builder.Services.AddSingleton<Database>();
+builder.Services.AddScoped<Database>();
 
 builder.Services.AddAutoMapper(typeof(Mapping));
 

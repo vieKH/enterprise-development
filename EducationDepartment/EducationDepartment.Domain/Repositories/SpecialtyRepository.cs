@@ -2,7 +2,7 @@
 
 namespace EducationDepartment.Domain.Repositories;
 
-public class SpecialtyRepository(Database database) : IRepository<Specialty>
+public class SpecialtyRepository(EducationDepartmentContext educationDepartmentContext) : IRepository<Specialty>
 {
     public bool Delete(string id)
     {
@@ -11,18 +11,20 @@ public class SpecialtyRepository(Database database) : IRepository<Specialty>
         if (value == null)
             return false;
 
-        database.SpecialtyList.Remove(value);
+        educationDepartmentContext.Specialty.Remove(value);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }
 
-    public IEnumerable<Specialty> GetAll() => database.SpecialtyList;
+    public IEnumerable<Specialty> GetAll() => educationDepartmentContext.Specialty;
 
-    public Specialty? GetById(string id) => database.SpecialtyList.Find(a => a.SpecialtyId == id);
+    public Specialty? GetById(string id) => educationDepartmentContext.Specialty.FirstOrDefault(a => a.SpecialtyId == id);
 
     public void Post(Specialty data)
     {
-        database.SpecialtyList.Add(data);
+        educationDepartmentContext.Specialty.Add(data);
+        educationDepartmentContext.SaveChanges();
     }
 
     public bool Put(Specialty data)
@@ -32,9 +34,8 @@ public class SpecialtyRepository(Database database) : IRepository<Specialty>
         if (oldValue == null)
             return false;
 
-        oldValue.NameSpecialty = data.NameSpecialty;
-        oldValue.SpecialtyId = data.SpecialtyId;
-        oldValue.NumberOfGroups = data.NumberOfGroups;
+        educationDepartmentContext.Update(data);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }

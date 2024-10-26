@@ -2,7 +2,7 @@
 
 namespace EducationDepartment.Domain.Repositories;
 
-public class UniversityRepository(Database database) : IRepository<University>
+public class UniversityRepository(EducationDepartmentContext educationDepartmentContext) : IRepository<University>
 {
     public bool Delete(string id)
     {
@@ -11,18 +11,20 @@ public class UniversityRepository(Database database) : IRepository<University>
         if (value == null)
             return false;
 
-        database.UniversityList.Remove(value);
-
+        educationDepartmentContext.University.Remove(value);
+        educationDepartmentContext.SaveChanges();
+        
         return true;
     }
 
-    public IEnumerable<University> GetAll() => database.UniversityList;
+    public IEnumerable<University> GetAll() => educationDepartmentContext.University;
 
-    public University? GetById(string id) => database.UniversityList.Find(a => a.RegistrationNumber == id);
+    public University? GetById(string id) => educationDepartmentContext.University.FirstOrDefault(a => a.RegistrationNumber == id);
 
     public void Post(University data)
     {
-        database.UniversityList.Add(data);
+        educationDepartmentContext.University.Add(data);
+        educationDepartmentContext.SaveChanges();
     }
 
     public bool Put(University data)
@@ -32,14 +34,8 @@ public class UniversityRepository(Database database) : IRepository<University>
         if (oldValue == null)
             return false;
 
-        oldValue.RegistrationNumber = data.RegistrationNumber;
-        oldValue.Address = data.Address;
-        oldValue.NameUniversity = data.NameUniversity;
-        oldValue.RectorFullName = data.RectorFullName;
-        oldValue.Tittle = data.Tittle;
-        oldValue.BuildingOwnership = data.BuildingOwnership;
-        oldValue.Degree = data.Degree;
-        oldValue.PropertyType = data.PropertyType;
+        educationDepartmentContext.Update(data);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }

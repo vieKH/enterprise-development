@@ -18,7 +18,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
                                   university.BuildingOwnership,
                                   university.RectorFullName,
                                   university.Degree,
-                                  university.Tittle
+                                  university.Title
                               }).ToList();
 
 
@@ -29,7 +29,7 @@ public class EducationDepartmentTests(EducationDepartmentFixture fixture) : ICla
         Assert.Equal("Municipal", infoUniversity[0].BuildingOwnership);
         Assert.Equal("Tatiana Nikolaevna Fedorova", infoUniversity[0].RectorFullName);
         Assert.Equal("PhD", infoUniversity[0].Degree);
-        Assert.Equal("Professor", infoUniversity[0].Tittle);
+        Assert.Equal("Professor", infoUniversity[0].Title);
     }
 
     [Fact]

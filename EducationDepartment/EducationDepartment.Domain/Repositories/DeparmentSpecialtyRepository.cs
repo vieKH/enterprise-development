@@ -2,7 +2,7 @@
 
 namespace EducationDepartment.Domain.Repositories;
 
-public class DeparmentSpecialtyRepository(Database database) : IRepository<DepartmentSpecialty>
+public class DeparmentSpecialtyRepository(EducationDepartmentContext educationDepartmentContext) : IRepository<DepartmentSpecialty>
 {
     public bool Delete(string id)
     {
@@ -11,18 +11,20 @@ public class DeparmentSpecialtyRepository(Database database) : IRepository<Depar
         if (value == null)
             return false;
 
-        database.DepartmentSpecialtyList.Remove(value);
+        educationDepartmentContext.DepartmentSpecialty.Remove(value);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }
 
-    public IEnumerable<DepartmentSpecialty> GetAll() => database.DepartmentSpecialtyList;
+    public IEnumerable<DepartmentSpecialty> GetAll() => educationDepartmentContext.DepartmentSpecialty;
 
-    public DepartmentSpecialty? GetById(string id) => database.DepartmentSpecialtyList.Find(a => a.SpecialtyId == id);
+    public DepartmentSpecialty? GetById(string id) => educationDepartmentContext.DepartmentSpecialty.FirstOrDefault(a => a.SpecialtyId == id);
 
     public void Post(DepartmentSpecialty data)
     {
-        database.DepartmentSpecialtyList.Add(data);
+        educationDepartmentContext.DepartmentSpecialty.Add(data);
+        educationDepartmentContext.SaveChanges();
     }
 
     public bool Put(DepartmentSpecialty data)
@@ -31,8 +33,9 @@ public class DeparmentSpecialtyRepository(Database database) : IRepository<Depar
 
         if (oldValue == null)
             return false;
-        oldValue.DepartmentId = data.DepartmentId;
-        oldValue.SpecialtyId = data.SpecialtyId;
+        
+        educationDepartmentContext.Update(data);
+        educationDepartmentContext.SaveChanges();
 
         return true;
     }

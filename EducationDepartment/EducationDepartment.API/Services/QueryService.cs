@@ -1,4 +1,5 @@
-﻿using EducationDepartment.API.Dto;
+﻿using AutoMapper;
+using EducationDepartment.API.Dto;
 using EducationDepartment.Domain.Repositories;
 
 namespace EducationDepartment.API.Services;
@@ -21,7 +22,7 @@ public class QueryService(QueryRepository queryRepository)
                    BuildingOwnership = data.Item4,
                    RectorFullName = data.Item5,
                    Degree = data.Item6,
-                   Tittle = data.Item7
+                   Title = data.Item7
                };
     }
 

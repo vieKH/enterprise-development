@@ -1,4 +1,7 @@
-﻿namespace EducationDepartment.Domain.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EducationDepartment.Domain.Entity;
 
 /// <summary>
 /// Class for saving faculty's information
@@ -8,6 +11,7 @@ public class Faculty
     /// <summary>
     /// Faculty's id
     /// </summary>
+    [Key]
     public required string FacultyId { get; set; }
 
     /// <summary>
@@ -18,5 +22,6 @@ public class Faculty
     /// <summary>
     /// University registration number
     /// </summary>
+    [ForeignKey("University")]
     public required string RegistrationNumber { get; set; }
 }

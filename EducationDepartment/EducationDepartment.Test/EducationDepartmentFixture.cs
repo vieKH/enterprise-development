@@ -48,7 +48,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Federal",
                     RectorFullName = "Ivan Yefimovich Petrov",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -59,7 +59,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Private",
                     RectorFullName = "Anna Ivanova Vladimirovna",
                     Degree = "Doctor",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -70,7 +70,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Private",
                     RectorFullName = "Marina Vasilievna Smirnova",
                     Degree = "MA",
-                    Tittle = "Associate Professor"
+                    Title = "Associate Professor"
                 },
                 new University
                 {
@@ -81,7 +81,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Municipal",
                     RectorFullName = "Olga Petrova",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -92,7 +92,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Municipal",
                     RectorFullName = "Nikolai Vasilyevich Sergeev",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -103,7 +103,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Municipal",
                     RectorFullName = "Tatiana Nikolaevna Fedorova",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 },
                 new University
                 {
@@ -114,7 +114,7 @@ public class EducationDepartmentFixture
                     BuildingOwnership = "Federal",
                     RectorFullName = "Sergey Sergeevich Kozlov",
                     Degree = "PhD",
-                    Tittle = "Professor"
+                    Title = "Professor"
                 }
             ];
 
@@ -157,7 +157,7 @@ public class EducationDepartmentFixture
                 new Department{FacultyId = "6002", NameDepartment = "Department of Science Education", DepartmentId = "6002-DSE"},
                 new Department{FacultyId = "6003", NameDepartment = "Department of Languages", DepartmentId = "6003-DL"},
                 new Department{FacultyId = "6004", NameDepartment = "Department of Finance", DepartmentId = "6004-DF"},
-                new Department{FacultyId = "7001", NameDepartment = "Department of Sports Physiologys", DepartmentId = "7001-DSP"},
+                new Department{FacultyId = "7001", NameDepartment = "Department of Sports Physiologys", DepartmentId = "7001-DSP"}
             ];
 
         SpecialtyList =
@@ -211,7 +211,7 @@ public class EducationDepartmentFixture
                 new DepartmentSpecialty{DepartmentId = "6002-DSE", SpecialtyId = "6002.04.02"},
                 new DepartmentSpecialty{DepartmentId = "6003-DL", SpecialtyId = "6003.04.02"},
                 new DepartmentSpecialty{DepartmentId = "6004-DF", SpecialtyId = "6004.04.02"},
-                new DepartmentSpecialty{DepartmentId = "7001-DSP", SpecialtyId = "7001.03.02"},
+                new DepartmentSpecialty{DepartmentId = "7001-DSP", SpecialtyId = "7001.03.02"}
             ];
 
 

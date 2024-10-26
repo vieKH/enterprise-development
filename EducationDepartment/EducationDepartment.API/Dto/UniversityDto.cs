@@ -43,5 +43,5 @@ public class UniversityDto
     /// <summary>
     /// Rector's tittle
     /// </summary>
-    public required string Tittle { get; set; }
+    public required string Title { get; set; }
 }

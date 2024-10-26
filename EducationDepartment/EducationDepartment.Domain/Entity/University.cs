@@ -1,4 +1,6 @@
-﻿namespace EducationDepartment.Domain.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EducationDepartment.Domain.Entity;
 
 /// <summary>
 /// Class for saving university's information
@@ -8,6 +10,7 @@ public class University
     /// <summary>
     /// University's registration number
     /// </summary>
+    [Key]
     public required string RegistrationNumber { get; set; }
 
     /// <summary>
@@ -43,5 +46,5 @@ public class University
     /// <summary>
     /// Rector's tittle
     /// </summary>
-    public required string Tittle { get; set; }
+    public required string Title { get; set; }
 }
