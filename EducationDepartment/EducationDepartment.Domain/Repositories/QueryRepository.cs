@@ -43,6 +43,7 @@ public class QueryRepository(EducationDepartmentContext educationDepartmentConte
                       department.DepartmentId
                   })
             .GroupBy(b => new { b.RegistrationNumber, b.NameUniversity })
+            .OrderByDescending(c => c.Count())
             .Select(res => Tuple.Create(
                 res.Key.RegistrationNumber,
                 res.Key.NameUniversity,
