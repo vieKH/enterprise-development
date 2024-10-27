@@ -33,7 +33,7 @@ public class Database
     public List<University> UniversityList { get; set; }
 
     /// <summary>
-    /// Contructor for class
+    /// Constructor for class
     /// </summary>
     public Database()
     {

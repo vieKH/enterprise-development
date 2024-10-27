@@ -10,7 +10,7 @@ namespace EducationDepartment.API.Services;
 /// </summary>
 /// <param name="repository">(department specialty)'s repository</param>
 /// <param name="mapper">Automapper's object for mapping 2 objects DepartmentSpecialty and DepartmentSpecialtyDto</param>
-public class DepartmentSpecialtyService(DeparmentSpecialtyRepository repository, IMapper mapper): IService<DepartmentSpecialtyDto>
+public class DepartmentSpecialtyService(DepartmentSpecialtyRepository repository, IMapper mapper): IService<DepartmentSpecialtyDto>
 {
     /// <summary>
     /// Method delete (department specialty) by specialty's id

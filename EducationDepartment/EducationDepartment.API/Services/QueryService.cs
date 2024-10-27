@@ -8,24 +8,11 @@ namespace EducationDepartment.API.Services;
 /// Class for query's service
 /// </summary>
 /// <param name="queryRepository">Query's repository</param>
-public class QueryService(QueryRepository queryRepository)
+/// <param name="mapper">Mapper</param>
+public class QueryService(QueryRepository queryRepository, IMapper mapper)
 {
-    public IEnumerable<UniversityDto> InfoUniversityByRegistration(string registrationNumber)
-    {
-        return from data in queryRepository.InfoUniversityByRegistration(registrationNumber)
-               select new UniversityDto
-               {
-                   RegistrationNumber = registrationNumber,
-                   NameUniversity = data.Item1,
-                   Address = data.Item2,
-                   PropertyType = data.Item3,
-                   BuildingOwnership = data.Item4,
-                   RectorFullName = data.Item5,
-                   Degree = data.Item6,
-                   Title = data.Item7
-               };
-    }
-
+    public UniversityDto? InfoUniversityByRegistration(string registrationNumber) => mapper.Map<UniversityDto>(queryRepository.InfoUniversityByRegistration(registrationNumber));
+    
     public IEnumerable<UniversityAndDepartmentsDto> TotalDepartmentsInUniversity()
     {
         return from data in queryRepository.TotalDepartmentsInUniversity()

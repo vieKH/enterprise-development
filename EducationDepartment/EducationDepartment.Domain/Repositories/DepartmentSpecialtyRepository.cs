@@ -2,7 +2,7 @@
 
 namespace EducationDepartment.Domain.Repositories;
 
-public class DeparmentSpecialtyRepository(EducationDepartmentContext educationDepartmentContext) : IRepository<DepartmentSpecialty>
+public class DepartmentSpecialtyRepository(EducationDepartmentContext educationDepartmentContext) : IRepository<DepartmentSpecialty>
 {
     public bool Delete(string id)
     {

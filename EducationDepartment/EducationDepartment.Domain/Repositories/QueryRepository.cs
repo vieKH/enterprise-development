@@ -5,7 +5,7 @@ namespace EducationDepartment.Domain.Repositories;
 /// <summary>
 /// Class for query's repository
 /// </summary>
-/// <param name="database"></param>
+/// <param name="educationDepartmentContext">Data context</param>
 public class QueryRepository(EducationDepartmentContext educationDepartmentContext)
 {
     /// <summary>
@@ -13,21 +13,9 @@ public class QueryRepository(EducationDepartmentContext educationDepartmentConte
     /// </summary>
     /// <param name="registrationNumber">Registration number</param>
     /// <returns>University's information</returns>
-    public List<Tuple<string, string, string, string, string, string, string>> InfoUniversityByRegistration(string registrationNumber)
-    {
-        return educationDepartmentContext.University
-            .Where(uni => uni.RegistrationNumber == registrationNumber)
-            .Select(res => Tuple.Create
-            (
-                res.NameUniversity,
-                res.Address,
-                res.PropertyType,
-                res.BuildingOwnership,
-                res.RectorFullName,
-                res.Degree,
-                res.Title
-            ))
-            .ToList();
+    public University? InfoUniversityByRegistration(string registrationNumber)
+    { 
+        return educationDepartmentContext.University.FirstOrDefault(uni => uni.RegistrationNumber == registrationNumber);
     }
 
     /// <summary>
@@ -43,18 +31,18 @@ public class QueryRepository(EducationDepartmentContext educationDepartmentConte
                   (university, faculty) => new
                   {
                       University = university,
-                      facultyId = faculty.FacultyId
+                      FacultyId = faculty.FacultyId
                   })
             .Join(educationDepartmentContext.Department,
-                  uni_faculty => uni_faculty.facultyId,
+                  a => a.FacultyId,
                   department => department.FacultyId,
-                  (uni_faculty, department) => new
+                  (a, department) => new
                   {
-                      uni_faculty.University.RegistrationNumber,
-                      uni_faculty.University.NameUniversity,
+                      a.University.RegistrationNumber,
+                      a.University.NameUniversity,
                       department.DepartmentId
                   })
-            .GroupBy(x => new { x.RegistrationNumber, x.NameUniversity })
+            .GroupBy(b => new { b.RegistrationNumber, b.NameUniversity })
             .Select(res => Tuple.Create(
                 res.Key.RegistrationNumber,
                 res.Key.NameUniversity,
@@ -63,9 +51,9 @@ public class QueryRepository(EducationDepartmentContext educationDepartmentConte
     }
 
     /// <summary>
-    /// Method show top five specialties with highes nummber of groups
+    /// Method show top five specialties with highest number of groups
     /// </summary>
-    /// <returns>List of top five specialties with highes nummber of groups</returns>
+    /// <returns>List of top five specialties with highest number of groups</returns>
     public List<Tuple<string, int>> TopFiveSpecialties()
     {
         return educationDepartmentContext.Specialty
@@ -111,7 +99,7 @@ public class QueryRepository(EducationDepartmentContext educationDepartmentConte
     /// Method show information of faculties and specialties in university by university's name
     /// </summary>
     /// <param name="nameUniversity">University's name</param>
-    /// <returns><List information of faculties and specialties in university by university's name </returns>
+    /// <returns>List information of faculties and specialties in university by university's name </returns>
     public List<Tuple<string, string, string, string>> InfoFacultiesSpecialties(string nameUniversity)
     {
         return educationDepartmentContext.University
@@ -130,7 +118,7 @@ public class QueryRepository(EducationDepartmentContext educationDepartmentConte
             .Join(educationDepartmentContext.Specialty,
                 c => c.SpecialtyId,
                 specialty => specialty.SpecialtyId,
-                (c, Specialty) => new { c.NameUniversity, c.NameFaculty, c.NameDepartment, Specialty.NameSpecialty })
+                (c, specialty) => new { c.NameUniversity, c.NameFaculty, c.NameDepartment, specialty.NameSpecialty })
             .Where(d => d.NameUniversity == nameUniversity)
             .Select(res => Tuple.Create(res.NameUniversity, res.NameFaculty, res.NameDepartment, res.NameSpecialty))
             .ToList();

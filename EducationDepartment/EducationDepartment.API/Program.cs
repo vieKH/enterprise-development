@@ -29,7 +29,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<DepartmentRepository>();
 builder.Services.AddScoped<UniversityRepository>();
 builder.Services.AddScoped<FacultyRepository>();
-builder.Services.AddScoped<DeparmentSpecialtyRepository>();
+builder.Services.AddScoped<DepartmentSpecialtyRepository>();
 builder.Services.AddScoped<SpecialtyRepository>();
 builder.Services.AddScoped<QueryRepository>();
 

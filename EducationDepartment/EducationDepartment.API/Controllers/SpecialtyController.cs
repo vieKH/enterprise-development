@@ -25,12 +25,12 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <summary>
     /// Return specialty's information by specialty's id
     /// </summary>
-    /// <param name="SpecialtyId">Specialty's id</param>
+    /// <param name="specialtyId">Specialty's id</param>
     /// <returns>Specialty's information</returns>
-    [HttpGet("{SpecialtyId}")]
-    public ActionResult<SpecialtyDto> Get(string SpecialtyId)
+    [HttpGet("{specialtyId}")]
+    public ActionResult<SpecialtyDto> Get(string specialtyId)
     {
-        var specialty = service.GetById(SpecialtyId);
+        var specialty = service.GetById(specialtyId);
 
         if (specialty == null)
             return NotFound();
@@ -68,12 +68,12 @@ public class SpecialtyController(SpecialtyService service) : ControllerBase
     /// <summary>
     /// Delete specialty by specialty's id
     /// </summary>
-    /// <param name="SpecialtyId">Specialty's id</param>
+    /// <param name="specialtyId">Specialty's id</param>
     /// <returns>Success or not</returns>
-    [HttpDelete("{SpecialtyId}")]
-    public ActionResult<string> Delete(string SpecialtyId)
+    [HttpDelete("{specialtyId}")]
+    public ActionResult<string> Delete(string specialtyId)
     {
-        if (!service.Delete(SpecialtyId))
+        if (!service.Delete(specialtyId))
             return NotFound();
 
         return Ok("Specialty was deleted");

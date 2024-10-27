@@ -1,9 +1,7 @@
-﻿using EducationDepartment.Domain.Entity;
-
-namespace EducationDepartment.Domain.Repositories;
+﻿namespace EducationDepartment.Domain.Repositories;
 
 /// <summary>
-/// Interface for object's repositoryy
+/// Interface for object's repository
 /// </summary>
 /// <typeparam name="T">Generic type</typeparam>
 public interface IRepository<T>
