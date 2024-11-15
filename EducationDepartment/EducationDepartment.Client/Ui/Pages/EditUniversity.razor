@@ -1,0 +1,97 @@
+﻿@page "/universities/{Id}"
+
+@inject IEducationDepartmentWrapper EducationDepartmentApi
+@inject IJSRuntime JsRuntime
+
+<Card>
+    <CardHeader>
+        <Row Class="justify-content-between">
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <h4>Edit University's Information</h4>
+            </Column>
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <Button Color="Color.Primary" Clicked="UpdateUniversityAsync">
+                    Save
+                </Button>
+                <Button Color="Color.Danger" Clicked="DeleteUniversityAsync">
+                    Delete
+                </Button>
+                <Button Color="Color.Secondary" onclick="history.back();">
+                    Cancel
+                </Button>
+            </Column>
+        </Row>
+    </CardHeader>
+
+    <CardBody>
+        <Field>
+            <FieldLabel>Registration Number</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.RegistrationNumber" Disabled />
+        </Field>
+        <Field>
+            <FieldLabel>Name</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.NameUniversity" />
+        </Field>
+        <Field>
+            <FieldLabel>Address</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.Address" />
+        </Field>
+        <Field>
+            <FieldLabel>Property Type</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.PropertyType" />
+        </Field>
+        <Field>
+            <FieldLabel>Building Ownership</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.BuildingOwnership" />
+        </Field>
+        <Field>
+            <FieldLabel>Rector</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.RectorFullName" />
+        </Field>
+        <Field>
+            <FieldLabel>Degree</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.Degree" />
+        </Field>
+        <Field>
+            <FieldLabel>Title</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedUniversity.Title" />
+        </Field>
+    </CardBody>
+</Card>
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = "";
+
+    private UniversityDto UpdatedUniversity { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(Id))
+            UpdatedUniversity = await EducationDepartmentApi.GetByIdUniversity(Id);
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteUniversityAsync()
+    {
+        var deleteResponse = await EducationDepartmentApi.DeleteUniversity(Id);
+        if (deleteResponse == "University was deleted")
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "University deleted successfully.");
+            await JsRuntime.InvokeVoidAsync("history.back");
+        }
+        else await JsRuntime.InvokeVoidAsync("alert", "Error deleting university.");
+    }
+
+    private async Task UpdateUniversityAsync()
+    {
+        var updatedData = await EducationDepartmentApi.Put(UpdatedUniversity);
+        if (updatedData != null)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "University updated successfully.");
+            UpdatedUniversity = updatedData; // Update local state
+        }
+        else await JsRuntime.InvokeVoidAsync("alert", "Failed to update university.");
+    }
+}
