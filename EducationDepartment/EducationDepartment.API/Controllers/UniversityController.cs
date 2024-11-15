@@ -70,6 +70,7 @@ public class UniversityController(UniversityService service) : ControllerBase
     /// </summary>
     /// <param name="registrationNumber">Registration number</param>
     /// <returns>Success or not</returns>
+    [Produces("application/json")]
     [HttpDelete("{registrationNumber}")]
     public ActionResult<string> Delete(string registrationNumber)
     {

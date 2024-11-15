@@ -18,9 +18,9 @@ public class QueryService(QueryRepository queryRepository, IMapper mapper)
         return from data in queryRepository.TotalDepartmentsInUniversity()
                select new UniversityAndDepartmentsDto
                {
-                  NameUniversity = data.Item1,
-                  RegistrationNumber = data.Item2,
-                  TotalDepartments = data.Item3
+                   RegistrationNumber = data.Item1,
+                   NameUniversity = data.Item2,
+                   TotalDepartments = data.Item3
                };
     }
 

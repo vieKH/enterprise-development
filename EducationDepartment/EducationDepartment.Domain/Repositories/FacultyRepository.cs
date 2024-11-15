@@ -1,4 +1,5 @@
 ﻿using EducationDepartment.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EducationDepartment.Domain.Repositories;
 
@@ -34,7 +35,10 @@ public class FacultyRepository(EducationDepartmentContext educationDepartmentCon
         if (oldValue == null)
             return false;
 
-        educationDepartmentContext.Update(data);
+        educationDepartmentContext.Entry(oldValue).State = EntityState.Detached;
+
+        educationDepartmentContext.Entry(data).State = EntityState.Modified;
+
         educationDepartmentContext.SaveChanges();
 
         return true;

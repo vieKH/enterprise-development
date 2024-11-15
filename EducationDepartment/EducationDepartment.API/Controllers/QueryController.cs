@@ -28,7 +28,7 @@ public class QueryController(QueryService service) : ControllerBase
     /// </summary>
     /// <returns>List of objects mentioned in format json</returns>
     [HttpGet("Departments")]
-    public ActionResult<UniversityAndDepartmentsDto> TotalDepartmentsInUniversity()
+    public ActionResult<IEnumerable<UniversityAndDepartmentsDto>> TotalDepartmentsInUniversity()
     {
         return Ok(service.TotalDepartmentsInUniversity());
     }
@@ -38,7 +38,7 @@ public class QueryController(QueryService service) : ControllerBase
     /// </summary>
     /// <returns>List of objects mentioned in format json</returns>
     [HttpGet("Top5Specialties")]
-    public ActionResult<SpecialtyAndGroupsDto> TopFiveSpecialties()
+    public ActionResult<IEnumerable<SpecialtyAndGroupsDto>> TopFiveSpecialties()
     {
         return Ok(service.TopFiveSpecialties());
     }
@@ -49,7 +49,7 @@ public class QueryController(QueryService service) : ControllerBase
     /// <param name="propertyType">Property type</param>
     /// <returns>List of objects mentioned in format json</returns>
     [HttpGet("Properties")]
-    public ActionResult<PropertyAndGroupsDto> TotalGroupsByProperty(string propertyType)
+    public ActionResult<IEnumerable<PropertyAndGroupsDto>> TotalGroupsByProperty(string propertyType)
     {
         return Ok(service.TotalGroupsByProperty(propertyType));
     }
@@ -60,7 +60,7 @@ public class QueryController(QueryService service) : ControllerBase
     /// <param name="nameUniversity">University's name</param>
     /// <returns>List of objects mentioned in format json</returns>
     [HttpGet("FacultiesSpecialties")]
-    public ActionResult<FacultyAndSpecialtyDto> InfoFacultiesSpecialties(string nameUniversity)
+    public ActionResult<IEnumerable<FacultyAndSpecialtyDto>> InfoFacultiesSpecialties(string nameUniversity)
     {
         return Ok(service.InfoFacultiesSpecialties(nameUniversity));
     }
@@ -70,7 +70,7 @@ public class QueryController(QueryService service) : ControllerBase
     /// </summary>
     /// <returns>List of objects mentioned in format json</returns>
     [HttpGet("PropertiesBuildings")]
-    public ActionResult<PropertyAndBuildingDto> TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()
+    public ActionResult<IEnumerable<PropertyAndBuildingDto>> TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding()
     {
         return Ok(service.TotalDepartmentsFacultiesSpecialtiesByPropertyBuilding());
     }

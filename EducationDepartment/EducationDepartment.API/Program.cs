@@ -21,6 +21,16 @@ builder.Services.AddDbContext<EducationDepartmentContext>(options =>
     options.UseMySql(connectionString, serverVersion);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -45,6 +55,8 @@ builder.Services.AddScoped<Database>();
 builder.Services.AddAutoMapper(typeof(Mapping));
 
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
