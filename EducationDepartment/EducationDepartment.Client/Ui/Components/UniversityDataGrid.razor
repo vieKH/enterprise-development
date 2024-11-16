@@ -79,7 +79,6 @@
 
 <UniversityCreateModal @ref="UniversityCreateModal" OnUniversityAdded="@HandleUniversityAdded" />
 
-
 @code {
     [Parameter]
     public EventCallback OnDataChanged { get; set; }
@@ -120,5 +119,4 @@
     {
         Universities = await EducationDepartmentApi.GetAllUniversities();
     }
-
 }

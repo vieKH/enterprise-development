@@ -58,17 +58,7 @@
 
     private Modal UniversityModal { get; set; } = new();
 
-    private UniversityDto NewUniversity { get; set; } = new()
-    {
-        RegistrationNumber = "",
-        NameUniversity = "",
-        Address = "",
-        PropertyType = "",
-        BuildingOwnership = "",
-        RectorFullName = "",
-        Degree = "",
-        Title =""
-    };
+    private UniversityDto NewUniversity { get; set; } = new();
 
     public async Task Show() => await UniversityModal.Show();
 
