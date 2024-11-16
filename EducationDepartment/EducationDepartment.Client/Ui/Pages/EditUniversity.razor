@@ -86,12 +86,20 @@
 
     private async Task UpdateUniversityAsync()
     {
-        var updatedData = await EducationDepartmentApi.Put(UpdatedUniversity);
-        if (updatedData != null)
+        if (string.IsNullOrWhiteSpace(UpdatedUniversity.NameUniversity) ||
+            string.IsNullOrWhiteSpace(UpdatedUniversity.Address) ||
+            string.IsNullOrWhiteSpace(UpdatedUniversity.PropertyType) ||
+            string.IsNullOrWhiteSpace(UpdatedUniversity.BuildingOwnership) ||
+            string.IsNullOrWhiteSpace(UpdatedUniversity.RectorFullName) ||
+            string.IsNullOrWhiteSpace(UpdatedUniversity.Degree) ||
+            string.IsNullOrWhiteSpace(UpdatedUniversity.Title))
         {
-            await JsRuntime.InvokeVoidAsync("alert", "University updated successfully.");
-            UpdatedUniversity = updatedData; // Update local state
+            await JsRuntime.InvokeVoidAsync("alert", "Please fill in all required fields.");
+            return;
         }
-        else await JsRuntime.InvokeVoidAsync("alert", "Failed to update university.");
+
+        var updatedData = await EducationDepartmentApi.Put(UpdatedUniversity);
+        await JsRuntime.InvokeVoidAsync("alert", "University updated successfully.");
+        UpdatedUniversity = updatedData; 
     }
 }
