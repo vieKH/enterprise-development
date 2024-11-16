@@ -66,7 +66,8 @@
 
     private async Task CreateUniversityAsync()
     {
-        if (string.IsNullOrWhiteSpace(NewUniversity.NameUniversity) ||
+        if (string.IsNullOrWhiteSpace(NewUniversity.RegistrationNumber) ||
+        string.IsNullOrWhiteSpace(NewUniversity.NameUniversity) ||
         string.IsNullOrWhiteSpace(NewUniversity.Address) ||
         string.IsNullOrWhiteSpace(NewUniversity.PropertyType) ||
         string.IsNullOrWhiteSpace(NewUniversity.BuildingOwnership) ||
